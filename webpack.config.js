@@ -4,6 +4,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+var WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
+
 var getHtmlConfig = function(name, title){
 	return {
 		template: './src/view/'+ name +'.html',
@@ -11,18 +13,20 @@ var getHtmlConfig = function(name, title){
 		title: title,
 		inject: true,
 		hash: true,
-		chunks: [name]
+		chunks: ['common', name]
 	}
 }
 
-module.exports = {
+var config = {
 	entry: {
-		'index': ['./src/index.js'],
-		'text': ['./src/page/text/index.js']
+		'common': ['./src/page/common/index.js'],
+		'text': ['./src/page/text/index.js'],
+		'login': ['./src/page/login/index.js']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
-		filename: 'js/[name].js'
+		filename: 'js/[name].js',
+		publicPath: '/dist'
 	},
 	resolve: {
 		alias: {
@@ -50,16 +54,26 @@ module.exports = {
 					}
 				}
 			},
-			// {
-			// 	test: /\.(jpg|png|gif|woff|svg|eot|ttf)\??.*$/,
-			// 	loader: 'url-loader?limit=100&name=resource/[name].[ext]'
-			// }
+			{
+				test: /\.(jpg|png|gif|woff|svg|eot|ttf)\??.*$/,
+				loader: 'url-loader?limit=100&name=resource/[name].[ext]'
+			}
 		]
 	},
 	plugins: [
 		new HtmlWebpackPlugin(getHtmlConfig('text', '测试页')),
-		new CleanWebpackPlugin(['dist']),
+		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
-		new ExtractTextPlugin('css/[name].css')
+		new ExtractTextPlugin('css/[name].css'),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'common',
+			filename: 'js/base.js'
+		})
 	]
 }
+
+if(WEBPACK_ENV === 'dev'){
+	config.entry.common.push('webpack-dev-server/client?http://localhost:8088/');
+}
+
+module.exports = config;

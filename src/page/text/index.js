@@ -6,7 +6,3 @@ function* hello(){
 	return 'zhangqi';
 }
 var hw = hello();
-console.log(hw.next());
-console.log(hw.next());
-console.log(hw.next());
-console.log(hw.next());
