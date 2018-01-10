@@ -13,20 +13,20 @@ var getHtmlConfig = function(name, title){
 		title: title,
 		inject: true,
 		hash: true,
-		chunks: ['common', name]
+		// chunks: ['common', name]
+		chunks: [name]
 	}
 }
 
 var config = {
 	entry: {
-		'common': ['./src/page/common/index.js'],
-		'text': ['./src/page/text/index.js'],
-		'login': ['./src/page/login/index.js']
+		// 'common': ['./src/page/common/index.js'],
+		'index': ['./src/page/index/index.js']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'js/[name].js',
-		publicPath: '/dist'
+		publicPath: '/dist/'
 	},
 	resolve: {
 		alias: {
@@ -61,14 +61,14 @@ var config = {
 		]
 	},
 	plugins: [
-		new HtmlWebpackPlugin(getHtmlConfig('text', '测试页')),
+		new HtmlWebpackPlugin(getHtmlConfig('index', '首页')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'common',
-			filename: 'js/base.js'
-		})
+		// new webpack.optimize.CommonsChunkPlugin({
+		// 	name: 'common',
+		// 	filename: 'js/base.js'
+		// })
 	]
 }
 
