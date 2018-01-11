@@ -30,6 +30,12 @@ const pub = {
 		elem.style.oTransitionDuration = times + 'ms';
 		elem.style.transitionDuration = times + 'ms';
 	},
+	transitionStart(elem, handler){
+		this.addEvent(elem, 'transitionstart', handler, false);
+		this.addEvent(elem, 'webkitTransitionStart', handler, false);
+		this.addEvent(elem, 'mozTransitionStart', handler, false);
+		this.addEvent(elem, 'oTransitionStart', handler, false);
+	},
 	transitionEnd(elem, handler){
 		this.addEvent(elem, 'transitionend', handler, false);
 		this.addEvent(elem, 'webkitTransitionEnd', handler, false);
