@@ -120,3 +120,17 @@
     -webkit-transform: translate(-50%, 0) rotate(-45deg);
     transform: translate(-50%, 0) rotate(-45deg);
 }
+
+.suspend-box{
+    width: 1000px;
+    margin: 0 auto;
+}
+.suspend{
+    margin: 50px;
+}
+.suspend-horizontal-reverse{
+    margin-left: 150px;
+}
+.suspend-vertical-reverse{
+    margin-left: 250px;
+}

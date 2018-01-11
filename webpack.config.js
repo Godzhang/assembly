@@ -13,14 +13,13 @@ var getHtmlConfig = function(name, title){
 		title: title,
 		inject: true,
 		hash: true,
-		// chunks: ['common', name]
-		chunks: [name]
+		chunks: ['common', name]
 	}
 }
 
 var config = {
 	entry: {
-		// 'common': ['./src/page/common/index.js'],
+		'common': ['./src/page/common/index.js'],
 		'index': ['./src/page/index/index.js'],
 		'shrink': ['./src/page/shrink/index.js']
 	},
@@ -31,10 +30,10 @@ var config = {
 	},
 	resolve: {
 		alias: {
-			assets: path.resolve(__dirname, '/src/assets'),
-			page: path.resolve(__dirname, '/src/page'),
-			view: path.resolve(__dirname, '/src/view'),
-			util: path.resolve(__dirname, '/src/util')
+			assets: __dirname + '/src/assets',
+			page: __dirname + '/src/page',
+			view: __dirname + '/src/view',
+			util: __dirname + '/src/util'
 		}
 	},
 	module: {
@@ -68,10 +67,10 @@ var config = {
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),
-		// new webpack.optimize.CommonsChunkPlugin({
-		// 	name: 'common',
-		// 	filename: 'js/base.js'
-		// })
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'common',
+			filename: 'js/base.js'
+		})
 	]
 }
 
