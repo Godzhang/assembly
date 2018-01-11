@@ -21,7 +21,8 @@ var config = {
 	entry: {
 		'common': ['./src/page/common/index.js'],
 		'index': ['./src/page/index/index.js'],
-		'shrink': ['./src/page/shrink/index.js']
+		'shrink': ['./src/page/shrink/index.js'],
+		'fullpage': ['./src/page/fullpage/index.js']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -64,6 +65,7 @@ var config = {
 	plugins: [
 		new HtmlWebpackPlugin(getHtmlConfig('index', '首页')),
 		new HtmlWebpackPlugin(getHtmlConfig('shrink', '收缩菜单')),
+		new HtmlWebpackPlugin(getHtmlConfig('fullpage', '全屏滚动')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),
