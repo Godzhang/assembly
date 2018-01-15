@@ -23,7 +23,9 @@ var config = {
 		'index': ['./src/page/index/index.js'],
 		'shrink': ['./src/page/shrink/index.js'],
 		'fullpage': ['./src/page/fullpage/index.js'],
-		'treemenu': ['./src/page/treemenu/index.js']
+		'treemenu': ['./src/page/treemenu/index.js'],
+		'fullscreen': ['./src/page/fullscreen/index.js'],
+		'marquee': ['./src/page/marquee/index.js']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -68,6 +70,8 @@ var config = {
 		new HtmlWebpackPlugin(getHtmlConfig('shrink', '收缩菜单')),
 		new HtmlWebpackPlugin(getHtmlConfig('fullpage', '全屏滚动')),
 		new HtmlWebpackPlugin(getHtmlConfig('treemenu', '树形菜单')),
+		new HtmlWebpackPlugin(getHtmlConfig('fullscreen', '开启全屏')),
+		new HtmlWebpackPlugin(getHtmlConfig('marquee', '走马灯')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),

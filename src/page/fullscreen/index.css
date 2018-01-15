@@ -1,0 +1,7 @@
+:-webkit-full-screen,
+:-moz-full-screen,
+:-ms-full-screen,
+:fullscreen{
+	width: 100%;
+	height: 100%;
+}
