@@ -7,48 +7,69 @@ import pub from 'util/public.js';
 			this.options = options || {};
 			this.container = this.options.container || document.querySelectorAll('.marquee-box');
 			this.inner = this.options.inner || this.container.querySelector('.marquee-inner');
-			this.distance = this.options.distance || 5;
+			this.distance = this.options.distance || 3;
 			this.speed = this.options.speed || 80;
 			this.loop = this.options.loop || false;
+			// this.repeat = this.options.repeat || false;
 			this.direction = this.options.direction || 'ltr';
 			this.containerWidth = this.container.offsetWidth;
 			this.innerWidth = this.inner.offsetWidth;
 			this.startPos = null;
 			this.endPos = null;
 			this.timer = null;
+			this.startPosObj = {
+				'ltr': -this.innerWidth,
+				'rtl': this.containerWidth
+			};
+			this.endPosObj = {
+				'ltr': this.containerWidth,
+				'rtl': -this.innerWidth
+			};
 
 			this.init();
 		}
 
 		init(){
-			if(this.loop){
-				this.cloneList();
-			}
+			// if(this.repeat){
+			// 	this.cloneList();
+			// }
 			this.initPosition();
 			this.bindEvent();
 			this.move();
 		}
 
-		cloneList(){
-			// if(innerWidth > containerWidth/2){
+		// cloneList(){
+		// 	this.cloneNum = Math.ceil(this.containerWidth / this.innerWidth) + 1;
+			
+		// 	for(let i = 1; i <= this.cloneNum; i++){
+		// 		this['co-' + i] = this.inner.cloneNode(true);
+		// 		this.container.appendChild(this['co-' + i]);
+		// 	}
 
+		// 	this.childlist = this.container.querySelectorAll('.marquee-inner');
+		// }
+
+		initPosition(){
+			// let innerWidth = this.direction === 'ltr' ? -this.innerWidth : this.innerWidth;
+			this.startPos = this.startPosObj[this.direction];
+			this.endPos = this.endPosObj[this.direction];
+
+			// if(this.repeat){
+			// 	for(let i = 0, len = this.cloneNum + 1; i < len; i++){
+			// 		pub.setTransform(this.childlist[i], 'translate(' + (this.startPos + i * innerWidth) + 'px, 0)')
+			// 	}
+			// }else{
+				pub.setTransform(this.inner, 'translate(' + this.startPos + 'px, 0)');
 			// }
 		}
 
-		initPosition(){
-			if(this.direction === 'ltr'){
-				this.startPos = -this.innerWidth;
-				this.endPos = this.containerWidth;
-				pub.setTransform(this.inner, 'translate(' + this.startPos + 'px, 0)');
-			}else if(this.direction === 'rtl'){
-				this.startPos = this.containerWidth;
-				this.endPos = -this.innerWidth;
-				pub.setTransform(this.inner, 'translate(' + this.endPos + 'px, 0)');
-			}
-		}
-
 		bindEvent(){
-
+			pub.addEvent(this.container, 'mouseover', () => {
+				clearInterval(this.timer);
+			}, false);
+			pub.addEvent(this.container, 'mouseout', () => {
+				this.move();
+			}, false);
 		}
 
 		move(){
@@ -59,16 +80,23 @@ import pub from 'util/public.js';
 					this.startPos -= this.distance;
 				}
 
-				if(this.startPos >= this.endPos){
+				if((this.direction === 'ltr' && this.startPos >= this.endPos) || (this.direction === 'rtl' && this.startPos <= this.endPos)){
 					pub.setTransform(this.inner, 'translate(' + this.endPos + 'px, 0)');
+					this.moveEnd();
 				}else{
 					pub.setTransform(this.inner, 'translate(' + this.startPos + 'px, 0)');
 				}
-				
 			}, this.speed);
 		}
 
-
+		moveEnd(){
+			clearInterval(this.timer);							//清除定时器
+			this.startPos = this.startPosObj[this.direction];   //重置初始位置
+			if(this.loop){
+				pub.setTransform(this.inner, 'translate(' + this.startPos + 'px, 0)');
+				this.move();
+			}
+		}
 	}
 
 	window.Marquee = Marquee;
@@ -128,5 +156,9 @@ import pub from 'util/public.js';
 })();
 
 let marquee = new Marquee({
-	container: document.querySelector('.marquee-box')
+	container: document.querySelector('.marquee-box'),
+	// direction: 'rtl',
+	loop: true,
+	speed: 30,
+	repeat: true
 });

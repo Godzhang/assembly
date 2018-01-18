@@ -8,12 +8,12 @@
 }
 .marquee-box {
 	position: relative;
-	width: 400px;
-	height: 40px;
+	width: 800px;
+	height: 100px;
 	background: #eee;
 	margin: 10px;
 	padding: 0 10px;
-	line-height: 40px;
+	line-height: 100px;
 	overflow: hidden;
 }
 
@@ -23,6 +23,9 @@
 	left: 0;
 }
 .marquee-box ul li {
-	padding: 0 15px;
 	float: left;
+	height: 100px;
+}
+.marquee-box ul li img{
+	height: 100px;
 }
