@@ -1,0 +1,83 @@
+.item{
+	height: 50px;
+	padding: 10px 0;
+	overflow: hidden;
+}
+.item button{
+	display: block;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	outline: none;
+}
+
+.dialog-wrapper{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.4);
+}
+.dialog-container{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	min-width: 150px;
+	transform: translate(-50%, -50%);
+	background: rgba(0,0,0,.8);
+	padding: 10px;
+	border-radius: 10px;
+}
+.dialog-header{
+	height: 40px;
+	overflow: hidden;
+}
+.dialog-header span{
+	display: block;
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+	background: url(../../assets/image/loading.gif) center 0 no-repeat;
+	background-size: 40px 40px;
+}
+.dialog-header span.warn{
+	background-image: url(../../assets/image/warn.png);
+}
+.dialog-header span.ok{
+	background-image: url(../../assets/image/ok.png);
+}
+.dialog-txt{
+	margin-top: 10px;
+	font-size: 16px;
+	line-height: 24px;
+	text-align: center;
+	color: #fff;
+}
+.dialog-footer{
+	margin-top: 10px;
+	text-align: center;
+	font-size: 0;
+}
+.dialog-footer button{
+	margin: 0 5px;
+	width: 50px;
+	height: 30px;
+	border: none;
+	outline: none;
+}
+.dialog-footer button.warn{background: #f00;color: #fff;}
+.dialog-footer button.ok{background: #15d63e;color: #fff;}
+
+
+
+
+
+
+
+
+
+
+
+
+

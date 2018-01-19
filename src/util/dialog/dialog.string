@@ -1,0 +1,12 @@
+<div class="dialog-wrapper">
+	<div class="dialog-container">
+		<div class="dialog-header">
+			<span></span>
+		</div>
+		<div class="dialog-txt"></div>
+		<div class="dialog-footer">
+			<button></button>
+			<button></button>
+		</div>
+	</div>		
+</div>

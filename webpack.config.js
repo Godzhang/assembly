@@ -25,7 +25,8 @@ var config = {
 		'fullpage': ['./src/page/fullpage/index.js'],
 		'treemenu': ['./src/page/treemenu/index.js'],
 		'fullscreen': ['./src/page/fullscreen/index.js'],
-		'marquee': ['./src/page/marquee/index.js']
+		'marquee': ['./src/page/marquee/index.js'],
+		'dialog': ['./src/page/dialog/index.js']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -62,6 +63,15 @@ var config = {
 			{
 				test: /\.(jpg|png|gif|woff|svg|eot|ttf)\??.*$/,
 				loader: 'url-loader?limit=100&name=resource/[name].[ext]'
+			},
+			{
+				test: /\.string$/,
+				loader: 'html-loader',
+				query: {
+					minimize: true,
+					removeAttributeQuotes: false
+				}
+
 			}
 		]
 	},
@@ -72,6 +82,7 @@ var config = {
 		new HtmlWebpackPlugin(getHtmlConfig('treemenu', '树形菜单')),
 		new HtmlWebpackPlugin(getHtmlConfig('fullscreen', '开启全屏')),
 		new HtmlWebpackPlugin(getHtmlConfig('marquee', '走马灯')),
+		new HtmlWebpackPlugin(getHtmlConfig('dialog', '弹框组件')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),
