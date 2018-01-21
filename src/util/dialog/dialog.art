@@ -1,0 +1,26 @@
+<div class="dialog-wrapper">
+    <div class="dialog-container">
+        <div class="dialog-header {{type}}">
+            {{if type === 'waiting'}}
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            {{/if}}
+        </div>
+        {{if txt}}
+        <div class="dialog-txt">{{txt}}</div>
+        {{/if}}
+        {{if buttons}}
+        <div class="dialog-footer">
+            {{each buttons as value}}
+            <button class="{{value.type}}">{{value.txt}}</button>
+            {{/each}}
+        </div>
+        {{/if}}
+    </div>
+</div>

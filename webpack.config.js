@@ -26,7 +26,8 @@ var config = {
 		'treemenu': ['./src/page/treemenu/index.js'],
 		'fullscreen': ['./src/page/fullscreen/index.js'],
 		'marquee': ['./src/page/marquee/index.js'],
-		'dialog': ['./src/page/dialog/index.js']
+		'dialog': ['./src/page/dialog/index.js'],
+		'art': ['./src/page/art/index.js']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -71,7 +72,10 @@ var config = {
 					minimize: true,
 					removeAttributeQuotes: false
 				}
-
+			},
+			{
+				test: /\.art$/,
+				loader: 'art-template-loader'
 			}
 		]
 	},
@@ -83,6 +87,7 @@ var config = {
 		new HtmlWebpackPlugin(getHtmlConfig('fullscreen', '开启全屏')),
 		new HtmlWebpackPlugin(getHtmlConfig('marquee', '走马灯')),
 		new HtmlWebpackPlugin(getHtmlConfig('dialog', '弹框组件')),
+		new HtmlWebpackPlugin(getHtmlConfig('art', 'art-template实验')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),

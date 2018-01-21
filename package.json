@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/Godzhang/assembly#readme",
   "devDependencies": {
+    "art-template": "^4.12.2",
+    "art-template-loader": "^1.4.3",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -28,6 +30,7 @@
     "extract-text-plus-webpack-plugin": "^1.0.0",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^1.1.6",
+    "hogan": "^1.0.2",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^2.30.1",
     "style-loader": "^0.19.1",

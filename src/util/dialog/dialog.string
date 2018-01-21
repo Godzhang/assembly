@@ -1,12 +1,22 @@
 <div class="dialog-wrapper">
 	<div class="dialog-container">
-		<div class="dialog-header">
+		<div class="dialog-header {{type}}">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
 			<span></span>
 		</div>
-		<div class="dialog-txt"></div>
+		{{#txt}}
+		<div class="dialog-txt">{{txt}}</div>
+		{{/txt}}
 		<div class="dialog-footer">
-			<button></button>
-			<button></button>
+			{{#buttons}}
+				<button class="{{type}}">{{txt}}</button>
+			{{/buttons}}
 		</div>
-	</div>		
+	</div>
 </div>
