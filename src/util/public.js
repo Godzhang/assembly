@@ -1,5 +1,5 @@
 const pub = {
-	addEvent(dom, type, handle, async){
+	addEvent(dom, type, handle, async = false){
 		if(dom.addEventListener){
 			dom.addEventListener(type, handle, async);
 		}else if(dom.attachEvent){
@@ -16,6 +16,31 @@ const pub = {
 		}else{
 			dom['on' + type] = null;
 		}
+	},
+	fireEvent(elem, type, bubbles, cancelable){
+		if(document.createEvent){
+			let event = document.createEvent('Event');
+			event.initEvent(type, bubbles !== undefined ? bubbles : true, cancelable !== undefined ? cancelable : false);
+			elem.dispatchEvent(event);
+		}else if(document.createEventObject){	//IE
+			let event = document.createEventObject();
+			elem.fireEvent('on' + type, event);
+		}else if(typeof (elem['on' + type]) === 'function'){
+			elem['on' + type]();
+		}
+	},
+	cancelEvent(e){
+		if(e.preventDefault){
+			e.preventDefault();
+		}else{
+			e.returnValue = false;
+		}
+		if(e.stopPropagation){
+			e.stopPropagation();
+		}else{
+			e.cancelBubble = true;
+		}
+		return false;
 	},
 	setTransform(elem, animation){
 		elem.style.webkitTransform = animation;
@@ -53,6 +78,12 @@ const pub = {
 		this.removeEvent(elem, 'webkitAnimationEnd', handler, false);
 		this.removeEvent(elem, 'mozAnimationEnd', handler, false);
 		this.removeEvent(elem, 'OAnimationEnd', handler, false);
+	},
+	isIE(){
+		if(!!window.ActiveXObject || 'ActiveXObject' in window){
+			return true;
+		}
+		return false;
 	}
 }
 

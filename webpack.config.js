@@ -20,6 +20,7 @@ var getHtmlConfig = function(name, title){
 var config = {
 	entry: {
 		'common': ['./src/page/common/index.js'],
+		'test': ['./src/page/test/index.js'],
 		'index': ['./src/page/index/index.js'],
 		'shrink': ['./src/page/shrink/index.js'],
 		'fullpage': ['./src/page/fullpage/index.js'],
@@ -27,7 +28,10 @@ var config = {
 		'fullscreen': ['./src/page/fullscreen/index.js'],
 		'marquee': ['./src/page/marquee/index.js'],
 		'dialog': ['./src/page/dialog/index.js'],
-		'art': ['./src/page/art/index.js']
+		'art': ['./src/page/art/index.js'],
+		'slider': ['./src/page/slider/index.js'],
+		'tab': ['./src/page/tab/index.js'],
+		'editor': ['./src/page/editor/index.js']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -81,6 +85,7 @@ var config = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin(getHtmlConfig('index', '首页')),
+		new HtmlWebpackPlugin(getHtmlConfig('test', '测试页')),
 		new HtmlWebpackPlugin(getHtmlConfig('shrink', '收缩菜单')),
 		new HtmlWebpackPlugin(getHtmlConfig('fullpage', '全屏滚动')),
 		new HtmlWebpackPlugin(getHtmlConfig('treemenu', '树形菜单')),
@@ -88,6 +93,9 @@ var config = {
 		new HtmlWebpackPlugin(getHtmlConfig('marquee', '走马灯')),
 		new HtmlWebpackPlugin(getHtmlConfig('dialog', '弹框组件')),
 		new HtmlWebpackPlugin(getHtmlConfig('art', 'art-template实验')),
+		new HtmlWebpackPlugin(getHtmlConfig('slider', '滑块')),
+		new HtmlWebpackPlugin(getHtmlConfig('tab', '选项卡')),
+		new HtmlWebpackPlugin(getHtmlConfig('editor', '富文本编辑器')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),

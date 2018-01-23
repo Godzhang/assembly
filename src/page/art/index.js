@@ -1,5 +1,7 @@
+import './index.css';
 import pub from 'util/public.js';
 import template from './index.art';
+
 window.onload = function(){
     let div = document.createElement('div');
     let obj = {

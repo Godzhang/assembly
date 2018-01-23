@@ -27,7 +27,6 @@ class Dialog{
 	renderHtml(){
 		this.obj = Object.assign({}, this.params);
 		let html = dialogTemplate(this.obj);
-		console.log(html);
 		this.dom = document.createElement('div');
 		this.dom.innerHTML = html;
 		document.body.appendChild(this.dom);
