@@ -5,7 +5,18 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
-    <!-- <img src="../assets/image/emotion/accept.png" alt="" /> -->
-    <img src="<%= require('../assets/image/emotion/accept.png') %>" alt="" />
+
+    <div class="login-box">
+    	<div class="login-title">login in</div>
+    	<div class="login-content">
+    		<div class="login-item"><input type="text" placeholder="username" /><i class="fa fa-user"></i></div>
+			<div class="login-item"><input type="password" placeholder="password" /><i class="fa fa-key"></i></div>
+    	</div>
+    	<div class="login-footer">
+    		<i class="loading"></i>
+    		<button id="submit">login</button>
+    	</div>
+    </div>
+
 </body>
 </html>
