@@ -1,5 +1,97 @@
 import pub from 'util/public.js';
 
+class ColorPicker {
+	constructor(command, t){
+		this.command = command;
+		this.editor = t;
+	}
+
+	HSVtoRGB(h, s, v){
+		let r, g, b, i, f, p, q, t;
+		i = Math.floor(h * 6);
+		f = h * 6 - i;
+		p = v * (1 - s);
+		q = v * (1 - f * s);
+		t = v * (1 - (1 - f) * s);
+		switch(i % 6) {
+			case 0:
+				r = v, g = t, b = p;
+				break;
+			case 1:
+				r = q, g = v, b = p;
+				break;
+			case 2:
+				r = p, g = v, b = t;
+				break;
+			case 3:
+				r = p, g = q, b = v;
+				break;
+			case 4:
+				r = t, g = p, b = v;
+				break;
+			case 5:
+				r = v, g = p, b = q;
+				break;
+		}
+		let hr = Math.floor(r * 255).toString(16);
+		let hg = Math.floor(g * 255).toString(16);
+		let hb = Math.floor(b * 255).toString(16);
+		return '#' + (hr.length < 2 ? '0' : '') + hr +
+			(hg.length < 2 ? '0' : '') + hg +
+			(hb.length < 2 ? '0' : '') + hb;
+	}
+
+	addColorBoard(){
+		let table = document.createElement('table');
+		table.setAttribute('cellpadding', 0);
+		table.setAttribute('cellspacing', 0);
+		table.setAttribute('unselectable', 'on');
+		table.style.border = '1px solid #d9d9d9';
+		table.setAttribute('id', 'color-board');
+
+		for(let row = 1; row < 15; row++){
+			let rows = document.createElement('tr');
+			for(let col = 0; col < 25; ++col){
+				let color;
+				if(col == 24) {
+					let gray = Math.floor(255 / 13 * (14 - row)).toString(16);
+					let hexg = (gray.length < 2 ? '0' : '') + gray;
+					color = '#' + hexg + hexg + hexg;
+				} else {
+					let hue = col / 24;
+					let saturation = row <= 8 ? row / 8 : 1;
+					let value = row > 8 ? (16 - row) / 8 : 1;
+					color = this.HSVtoRGB(hue, saturation, value);
+				}
+				let td = document.createElement('td');
+				td.setAttribute('title', color);
+				td.setAttribute('unselectable', 'on');
+				td.style.backgroundColor = color;
+				td.width = 12;
+				td.height = 12;
+				rows.appendChild(td);
+			}
+			table.appendChild(rows);
+		}
+		let box = document.createElement('div');
+		box.appendChild(table);
+		return box.innerHTML;
+	}
+
+	clickEvent(){
+		let self = this;
+		let tds = document.getElementById('color-board');
+		tds = tds.childNodes[0].getElementsByTagName('td');
+		for(let i = 0; i < tds.length; i++) {
+			pub.addEvent(tds[i], 'click', function() {
+				let color = this.getAttribute('title');
+				self.editor.execCommand(self.command, color);
+				self.editor.closeModal();
+			}, false);
+		}
+	}
+}
+
 class RichEditor {
 	constructor(container, params = {}){
 		const t = this;
@@ -35,6 +127,165 @@ class RichEditor {
 						}
 						t.openModal.call(this, html, HClick);
 					}
+				},
+				code: {
+					title: '引用',
+					icon: '\uf10d',
+					click(){
+						let html = '<blockquote class="editor-block"><p><br></p></blockquote>';
+						t.execCommand('insertHTML', html);
+						let p = document.createElement('p');
+						p.innerHTML = '<br>';
+						t.et.appendChild(p);
+					}
+				},
+				bold: {
+					title: '加粗',
+					icon: '\uf032',
+					click(){
+						t.execCommand('bold');
+					}
+				},
+				italic: {
+					title: '斜体',
+					icon: '\uf033',
+					click(){
+						t.execCommand('italic');
+					}
+				},
+				underline: {
+					title: '下划线',
+					icon: '\uf0cd',
+					click(){
+						t.execCommand('underline');
+					}
+				},
+				strikethrough: {
+					title: '删除线',
+					icon: '\uf0cc',
+					click(){
+						t.execCommand('strikethrough');
+					}
+				},
+				foreColor: {
+					title: '字体颜色',
+					icon: '\uf1fc',
+					click(){
+						let color = new ColorPicker('foreColor', t);
+						t.openModal.call(this, color.addColorBoard(), color.clickEvent.bind(color));
+					}
+				},
+				backColor: {
+					title: '背景色',
+					icon: '\uf043',
+					click(){
+						let color = new ColorPicker('hiliteColor', t);
+						t.openModal.call(this, color.addColorBoard(), color.clickEvent.bind(color));
+					}
+				},
+				justifyLeft: {
+					title: "居左",
+					icon: "\uf036",
+					click(){
+						t.execCommand('justifyLeft');
+					}
+				},
+				justifyCenter: {
+					title: "居中",
+					icon: "\uf037",
+					click(){
+						t.execCommand('justifyCenter');
+					}
+				},
+				justifyRight: {
+					title: "居右",
+					icon: "\uf038",
+					click(){
+						t.execCommand('justifyRight');
+					}
+				},
+				justifyFull: {
+					title: "两端对齐",
+					icon: "\uf039",
+					click(){
+						t.execCommand('justifyFull');
+					}
+				},
+				insertOrderedList: {
+					title: "有序列表",
+					icon: "\uf0cb",
+					click(){
+						t.execCommand('insertOrderedList');
+					}
+				},
+				insertUnorderedList: {
+					title: "无序列表",
+					icon: "\uf0ca",
+					click(){
+						t.execCommand('insertUnorderedList');
+					}
+				},
+				indent: {
+					title:"indent",
+					icon:"\uf03c",
+					click(){
+						t.execCommand('indent');
+					}
+				},
+				outdent: {
+					title:"outdent",
+					icon:"\uf03b",
+					click(){
+						t.execCommand('outdent');
+					}
+				},
+				centerLink: {
+					title: "链接",
+					icon: "\uf0c1",
+					click(){
+						t.closeModal();
+						const html = '<input type="text" placeholder="www.example.com" class="editor-link-input"/> <button type="button" class="editor-confirm">确认</button>';
+						
+						function btnClick(){
+							let confirm = document.querySelector('.editor-confirm');
+							pub.addEvent(confirm, 'click', function(){
+								let link = document.querySelector('.editor-link-input');
+								if(link.value.trim() !== ''){
+									let a = `<a href="${link.value}" target="_blank">${link.value}</a>`;
+									t.execCommand('insertHTML', a);
+								}
+								t.closeModal();
+							});
+						}
+						t.openModal.call(this, html, btnClick);
+					}
+				},
+				inertImage: {
+					title: "插入图片",
+					icon: "\uf03e",
+					click(){
+						t.closeModal();
+						let html = `<div class="editor-file">图片上传<input type="file" name="photo" accept="image/*" class="editor-file-input"/></div>`;
+						t.openModal.call(this, html, t.fileInput.bind(t));
+					}
+				},
+				emotion: {
+					title: "表情",
+					icon: "\uf118",
+					click(){
+						t.drawEmotion.call(this, t);
+					}
+				},
+				fullscreen: {
+					title: "全屏",
+					icon: "\uf066",
+					click(){
+						t.toggleFullScreen();
+					}
+				},
+				save: {
+					title: '保存',
+					icon: '\uf0c7'
 				}
 			}
 		}
@@ -116,6 +367,56 @@ class RichEditor {
 			target.innerHTML = buttons[btn]['icon'];
 			toolbarTop.appendChild(target);
 		}
+	}
+
+	drawEmotion(t){
+		const list_smilies = ['smile', 'smiley', 'yum', 'relieved', 'blush', 'anguished', 'worried', 'sweat',
+			'unamused', 'sweat_smile', 'sunglasses', 'wink', 'relaxed', 'scream', 'pensive',
+			'persevere', 'mask', 'no_mouth', 'kissing_closed_eyes', 'kissing_heart', 'hushed',
+			'heart_eyes', 'grin', 'frowning', 'flushed', 'fearful', 'dizzy_face', 'disappointed_relieved',
+			'cry', 'confounded', 'cold_sweat', 'angry', 'anguished', 'broken_heart', 'beetle', 'good', 'no', 'beer',
+			'beers', 'birthday', 'bow', 'bomb', 'coffee', 'cocktail', 'gun', 'metal', 'moon'
+		];
+		let html = ``;
+		list_smilies.forEach((val) => {
+			html += `<img src="../../src/assets/image/emotion/${val}.png" class="emotion" width="20" height="20" alt="" />`;
+		});
+		t.openModal.call(this, html);
+
+		function add(){
+			let img = `<img src="${this.src}" class="emotion" width="20" height="20" alt="" />`;
+			document.execCommand('insertHTML', true, img);
+			t.closeModal();
+		}
+		let emotion = document.querySelectorAll('.emotion');
+		emotion.forEach((val) => {
+			pub.addEvent(val, 'click', add, false);
+		});
+	}
+
+	toggleFullScreen(){
+		if(!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
+			let docElm = document.documentElement;
+			if(docElm.requestFullscreen) {
+				docElm.requestFullscreen();
+			} else if(docElm.mozRequestFullScreen) {
+				docElm.mozRequestFullScreen();
+			} else if(docElm.webkitRequestFullScreen) {
+				docElm.webkitRequestFullScreen();
+			} else if(elem.msRequestFullscreen) {
+				elem.msRequestFullscreen();
+			};
+		} else {
+			if(document.exitFullscreen) {
+				document.exitFullscreen();
+			} else if(document.mozCancelFullScreen) {
+				document.mozCancelFullScreen();
+			} else if(document.webkitCancelFullScreen) {
+				document.webkitCancelFullScreen();
+			} else if(document.msExitFullscreen) {
+				document.msExitFullscreen();
+			}
+		};
 	}
 
 	toolClick(){
@@ -225,6 +526,36 @@ class RichEditor {
 			let range = sel.getRangeAt(0).cloneRange();
 		}
 	}
+
+	fileInput(){
+		let self = this;
+		let fi = document.querySelector('.editor-file-input');
+
+		function change(e){
+			let files = e.target.files,
+				file = null,
+				url = null;
+			if(files && files.length > 0){
+				file = files[0];
+				
+				try {
+					let fileReader = new FileReader();
+					fileReader.onload = function(e){
+						url = e.target.result;
+						let img = `<img src="${url}" />`;
+						document.execCommand('insertHTML', false, img);
+					}
+					fileReader.readAsDataURL(file);
+				}catch(e){
+
+				}
+			}
+			self.closeModal();
+		}
+
+		fi.onchange = change.bind(this);
+	}
+
 }
 
 export default RichEditor;

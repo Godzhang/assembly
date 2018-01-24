@@ -31,7 +31,8 @@ var config = {
 		'art': ['./src/page/art/index.js'],
 		'slider': ['./src/page/slider/index.js'],
 		'tab': ['./src/page/tab/index.js'],
-		'editor': ['./src/page/editor/index.js']
+		'editor': ['./src/page/editor/index.js'],
+		'scrollbar': ['./src/page/scrollbar/index.js']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -96,6 +97,7 @@ var config = {
 		new HtmlWebpackPlugin(getHtmlConfig('slider', '滑块')),
 		new HtmlWebpackPlugin(getHtmlConfig('tab', '选项卡')),
 		new HtmlWebpackPlugin(getHtmlConfig('editor', '富文本编辑器')),
+		new HtmlWebpackPlugin(getHtmlConfig('scrollbar', '自定义滚动条')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),

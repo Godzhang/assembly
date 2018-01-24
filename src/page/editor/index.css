@@ -1,6 +1,10 @@
 /*
  ** version 1
  * */
+ *{
+ 	margin: 0;
+ 	padding: 0;
+ }
 h1{
     font-size: 2em;
 }
@@ -19,6 +23,16 @@ h5{
 h6{
     font-size: 1em;
 }
+img{
+    display: inline;
+}
+ul{
+	list-style-type: disc;list-style-position: inside;
+}
+ol{
+	list-style-type: decimal;list-style-position: inside;
+}
+
 .re-container * {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;

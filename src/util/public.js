@@ -84,6 +84,16 @@ const pub = {
 			return true;
 		}
 		return false;
+	},
+	addPrefix(elem, attr, value){
+		const prefix = ['webkit', 'moz', 'o', 'ms'];
+		let uattr = attr.split('');
+		uattr[0] = uattr[0].toUpperCase();
+		uattr = uattr.join('');
+		prefix.forEach((val) => {
+			elem.style[val + uattr] = value;
+		});
+		elem.style[attr] = value;
 	}
 }
 
