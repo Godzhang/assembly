@@ -32,7 +32,9 @@ var config = {
 		'slider': ['./src/page/slider/index.js'],
 		'tab': ['./src/page/tab/index.js'],
 		'editor': ['./src/page/editor/index.js'],
-		'scrollbar': ['./src/page/scrollbar/index.js']
+		'scrollbar': ['./src/page/scrollbar/index.js'],
+		'form-beautify': ['./src/page/form-beautify/index.js'],
+		'button-tip': ['./src/page/button-tip/index.js']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -98,6 +100,8 @@ var config = {
 		new HtmlWebpackPlugin(getHtmlConfig('tab', '选项卡')),
 		new HtmlWebpackPlugin(getHtmlConfig('editor', '富文本编辑器')),
 		new HtmlWebpackPlugin(getHtmlConfig('scrollbar', '自定义滚动条')),
+		new HtmlWebpackPlugin(getHtmlConfig('form-beautify', '表单美化')),
+		new HtmlWebpackPlugin(getHtmlConfig('button-tip', '表单美化-2')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),
