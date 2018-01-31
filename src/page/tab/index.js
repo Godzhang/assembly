@@ -17,15 +17,14 @@ class Tab {
 		this.tabButtons = Array.from(this.container.querySelectorAll('.tab-button'));
 		this.tabContents = Array.from(this.container.querySelectorAll('.tab-item'));
 		this.box = this.container.querySelector('.tab-body');
-		
+
 		this.isTouch = 'touchstart' in window;
 		this.touchstart = this.isTouch ? 'touchstart' : 'mousedown';
 		this.touchmove = this.isTouch ? 'touchmove' : 'mousemove';
 		this.touchend = this.isTouch ? 'touchend' : 'mouseup';
 		this.startX = null;
 		// this.startY = null;
-		this.moveX = null;
-		// this.moveY = null;
+		this.move = null;
 		this.moving = false;
 
 		this.timer = null;
@@ -37,12 +36,13 @@ class Tab {
 		//给第一个按钮添加选中样式
 		this.tabButtons[0].classList.add(this.params.buttonActiveClass);
 		this.tabContents[0].classList.add(this.params.contentActiveClass);
+		this.width = this.tabContents[0].parentNode.offsetWidth;
 		//给按钮绑定事件
 		this.bindEvent();
 		//滑动事件
 		if(this.params.slide || this.isTouch){
 			this.bindSlider();
-		}		
+		}
 		//自动切换
 		if(this.params.autoPlay){
 			this.run();
@@ -68,41 +68,112 @@ class Tab {
 	}
 
 	bindSlider(){
+		this.initSlider();
 
-		// pub.addEvent(this.box, this.touchstart, this.moveTab.bind(this));
-		// pub.addEvent(this.box, this.touchmove, this.moveTab.bind(this));
-		// pub.addEvent(this.box, this.touchend, this.moveTab.bind(this));
-		const tb = this.tabButtons,
-			  tc = this.tabContents,
-			  bc = this.params.buttonActiveClass,
-			  cc = this.params.contentActiveClass,
-			  box = this.box;
+		const box = this.box;
 
 		pub.addEvent(box, this.touchstart, (e) => {
 			this.moving = true;
 
-			this.startX = e.clientX;
-			this.startY = e.clientY;
+			this.startX = e.pageX;
+			this.startY = e.pageY;
 		});
 		pub.addEvent(box, this.touchmove, (e) => {
-			if(this.moving){
-				this.moveX = e.clientX - this.startX;
+			e.preventDefault();
+			e.stopPropagation();
 
-				pub.setTransform(this.box, 'translate3d('+ this.moveX +'px, 0, 0)');
-			}		
+			if(this.moving){
+				this.move = e.pageX - this.startX;
+				let current = this.getCurrent();
+
+				let next = current.nextElementSibling;
+				let prev = current.previousElementSibling;
+				current.classList.add('moving');
+				next && next.classList.add('moving');
+				prev && prev.classList.add('moving');
+
+				pub.setTransform(current, 'translate3d('+ this.move +'px, 0, 0)');
+				next && pub.setTransform(next, 'translate3d('+ (this.move + this.width) +'px, 0, 0)');
+				prev && pub.setTransform(prev, 'translate3d('+ (this.move - this.width) +'px, 0, 0)');
+			}
 		});
 		pub.addEvent(box, this.touchend, (e) => {
+			e.preventDefault();
 			this.moving = false;
+			this.minRange = parseInt(this.width / 5);
+			let current = this.getCurrent();
+			let next = current.nextElementSibling;
+			let prev = current.previousElementSibling;
+
+			current.classList.remove('moving');
+			next && next.classList.remove('moving');
+			prev && prev.classList.remove('moving');
+
+			if(this.move < -this.minRange && next){
+				return this.next();
+			}
+			if(this.move > this.minRange && prev){
+				return this.prev();
+			}
+			this.reset();
 		});
+
+		//鼠标移出区域也要出发touchend事件
 	}
 
-	// moveTab(e){
-	// 	const type = e.type;
-		
-	// 	switch(type){
-	// 		case: 
-	// 	}
-	// }
+	initSlider(){
+		let current = this.tabContents[0];
+		current.classList.add('play');
+		pub.setTransform(current, 'translate3d(0, 0, 0)');
+
+		for(let i = 1, len = this.tabContents.length; i < len; i++){
+			let tc = this.tabContents[i];
+			tc.style.display = 'block';
+			pub.setTransform(tc, 'translate3d('+ this.width +'px, 0, 0)');
+		}
+	}
+
+	next(){
+		this.go(this.index + 1);
+	}
+
+	prev(){
+		this.go(this.index - 1);
+	}
+
+	go(index){
+		let current = this.getCurrent();
+		let total = this.tabContents.length;
+		let target = this.tabContents[index];
+		let d = index < this.index ? -1 : 1;
+
+		if(index === this.index || index < 0 || index >= total) return;
+		this.index = index;
+		pub.setTransform(current, 'translate3d('+ (-d * this.width) +'px, 0, 0)');
+		pub.setTransform(target, 'translate3d(0, 0, 0)');
+		this.finish(current, target);
+	}
+
+	finish(cur, target){
+		setTimeout(() => {
+			cur && cur.classList.remove('play');
+			target && target.classList.add('play');
+		}, 300);
+	}
+
+	reset(){
+		let current = this.getCurrent();
+		let next = current.nextElementSibling;
+		let prev = current.previousElementSibling;
+
+		pub.setTransform(current, 'translate3d(0, 0, 0)');
+		prev && pub.setTransform(prev, 'translate3d('+ (-this.width) +'px, 0, 0)');
+		next && pub.setTransform(next, 'translate3d('+ this.width +'px, 0, 0)');
+	}
+
+	getCurrent(){
+		return this.tabContents[this.index];
+	}
 
 	run(){
 		this.timer = setInterval(() => {
@@ -135,6 +206,15 @@ class Tab {
 		}
 	}
 
+	getIndex(index){
+		if(index > this.tabButtons.length){
+			return 0;
+		}else if(index < 0){
+			return this.tabButtons.length - 1;
+		}else{
+			return index;
+		}
+	}
 }
 
 const tab = new Tab('#tab-default', {
