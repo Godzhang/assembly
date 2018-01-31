@@ -2,94 +2,102 @@
 <html>
 <head>
 	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 	<title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
-	<div class="sg-tabs-block example sg-tabs-line">
-		<div class="sg-tabs-nav">
-			<div class="sg-button-tabs">
-				<a class="sg-button-tab">
-					热门文章
-				</a>
-				<a class="sg-button-tab">
-					最新文章
-				</a>
-				<a class="sg-button-tab">
-					一周热门
-				</a>
+	<div class="tab-container tab-default" id="tab-default">
+		<div class="tab-nav">
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
 			</div>
 		</div>
-		<div class="sg-tabs-body">
-			<div class="sg-tabs">
-				<div class="sg-tab active">
-					热门文章
-				</div>
-				<div class="sg-tab">
-					最新文章
-				</div>
-				<div class="sg-tab">
-					一周热门
-				</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item">热门文章</div>
+				<div class="tab-item">最新文章</div>
+				<div class="tab-item">一周热门</div>
 			</div>
 		</div>
 	</div>
-	
-	<div class="sg-tabs-block example tab-scale">
-		<div class="sg-tabs-nav">
-			<div class="sg-button-tabs">
-				<a class="sg-button-tab">
-					热门文章
-				</a>
-				<a class="sg-button-tab">
-					最新文章
-				</a>
-				<a class="sg-button-tab">
-					一周热门
-				</a>
+
+	<div class="explain">
+		<p>默认点击切换</p>
+		<p>new Tab('#tab-default');</p>
+	</div>
+
+	<div class="tab-container tab-default" id="tab-default-2">
+		<div class="tab-nav">
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
 			</div>
 		</div>
-		<div class="sg-tabs-body">
-			<div class="sg-tabs">
-				<div class="sg-tab active">
-					tab1
-				</div>
-				<div class="sg-tab">
-					tab2
-				</div>
-				<div class="sg-tab">
-					tab3
-				</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item">热门文章</div>
+				<div class="tab-item">最新文章</div>
+				<div class="tab-item">一周热门</div>
 			</div>
 		</div>
 	</div>
-	
-	<div class="sg-tabs-block example sg-tab-default">
-		<div class="sg-tabs-nav">
-			<div class="sg-button-tabs">
-				<a class="sg-button-tab">
-					热门文章
-				</a>
-				<a class="sg-button-tab">
-				最新文章
-				</a>
-				<a class="sg-button-tab">
-					一周热门
-				</a>
+
+	<div class="explain">
+		<p>触摸切换</p>
+		<p>new Tab('#tab-default-2', {</p>
+		<p>tabEvent: 'mouseover'</p>
+		<p>});</p>
+	</div>
+
+	<div class="tab-container tab-default" id="tab-default-3">
+		<div class="tab-nav">
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
 			</div>
 		</div>
-		<div class="sg-tabs-body">
-			<div class="sg-tabs">
-				<div class="sg-tab active">
-					tab1
-				</div>
-				<div class="sg-tab">
-					tab2
-				</div>
-				<div class="sg-tab">
-					tab3
-				</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item">热门文章</div>
+				<div class="tab-item">最新文章</div>
+				<div class="tab-item">一周热门</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="explain">
+		<p>自动切换</p>
+		<p>new Tab('#tab-default-3', {</p>
+		<p>autoPlay: true,</p>
+		<p>speed: 2000</p>
+		<p>});</p>
+	</div>
+
+	<div class="tab-container tab-line" id="tab-line">
+		<div class="tab-nav">
+			<div class="tab-move-bg"></div>
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
+			</div>
+		</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item">热门文章</div>
+				<div class="tab-item">最新文章</div>
+				<div class="tab-item">一周热门</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="explain">
+		<p>移动切换样式</p>
+		<p>new Tab('#tab-line');</p>
 	</div>
 </body>
 </html>

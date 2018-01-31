@@ -62,10 +62,10 @@ const pub = {
 		this.addEvent(elem, 'oTransitionEnd', handler, false);
 	},
 	delTransitionEnd(elem, handler){
-		this.removeEvent(elem, 'transitionend', handler, false)
-		this.removeEvent(elem, 'webkitTransitionEnd', handler, false)
-		this.removeEvent(elem, 'mozTransitionEnd', handler, false)
-		this.removeEvent(elem, 'oTransitionEnd', handler, false)
+		this.removeEvent(elem, 'transitionend', handler, false);
+		this.removeEvent(elem, 'webkitTransitionEnd', handler, false);
+		this.removeEvent(elem, 'mozTransitionEnd', handler, false);
+		this.removeEvent(elem, 'oTransitionEnd', handler, false);
 	},
 	animationEnd(elem, handler){
 		this.addEvent(elem, 'animationend', handler, false);
@@ -94,6 +94,9 @@ const pub = {
 			elem.style[val + uattr] = value;
 		});
 		elem.style[attr] = value;
+	},
+	getStyle(elem, attr){
+		return ('getComputedStyle' in window) ? getComputedStyle(elem, false)[attr] : elem.currentStyle[attr];
 	}
 }
 
