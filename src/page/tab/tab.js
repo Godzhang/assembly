@@ -9,6 +9,7 @@ class Tab {
 			autoPlay: false,
 			speed: 2000,
 			buttonActiveClass: 'active',
+			contentActiveClass: 'active',
 			slide: false
 		}
 		this.params = Object.assign({}, defaults, params);
@@ -34,42 +35,18 @@ class Tab {
 	init(){
 		//给第一个按钮添加选中样式
 		this.tabButtons[0].classList.add(this.params.buttonActiveClass);
+		this.tabContents[0].classList.add(this.params.contentActiveClass);
 		//获取切换内容容器宽度
 		this.width = this.tabContents[0].parentNode.offsetWidth;
-		//初始化各部分位置
-		this.initPos();
 		//给按钮绑定事件
 		this.bindEvent();
 		//绑定滑动事件
-		if(this.params.slide){
-			this.bindSlider();
+		if(this.params.slide || this.isTouch){
+			this.initSlider();
 		}
 		//自动切换
 		if(this.params.autoPlay){
 			this.run();
-		}
-	}
-
-	initPos(){
-		let current = this.tabContents[this.index];
-		
-		pub.setTransform(current, 'translate3d(0, 0, 0)');
-
-		for(let i = 0, len = this.tabContents.length; i < len; i++){
-			let tc = this.tabContents[i];
-			pub.setTransitionDuration(tc, 0);
-			if(i === 0) continue;
-			pub.setTransform(tc, 'translate3d('+ this.width +'px, 0, 0)');
-		}
-		if(this.params.slide){
-			current.classList.add('play');
-		}
-	}
-
-	setDuration(time){
-		for(let i = 0, len = this.tabContents.length; i < len; i++){
-			let tc = this.tabContents[i];
-			pub.setTransitionDuration(tc, time);
 		}
 	}
 
@@ -78,7 +55,6 @@ class Tab {
 			pub.addEvent(btn, this.params.tabEvent, () => {
 				if(!btn.classList.contains(this.params.buttonActiveClass)){
 					this.switchTab(index);
-					this.switchContent(index);
 				}
 			});
 		});
@@ -92,8 +68,27 @@ class Tab {
 		}
 	}
 
-	bindSlider(){
-		pub.addEvent(this.contentBox, this.touchstart, this.touchstartEvent.bind(this));
+	initSlider(){
+		let current = this.tabContents[0];
+		current.classList.add('play');
+		pub.setTransform(current, 'translate3d(0, 0, 0)');
+
+		for(let i = 1, len = this.tabContents.length; i < len; i++){
+			let tc = this.tabContents[i];
+			tc.style.display = 'block';
+			pub.setTransform(tc, 'translate3d('+ this.width +'px, 0, 0)');
+		}
+
+		this.bindSlider();
+	}
+
+	bindSlider(){	
+		const box = this.contentBox;
+
+		pub.addEvent(box, this.touchstart, this.touchstartEvent.bind(this));
+		pub.addEvent(box, this.touchmove, this.touchmoveEvent.bind(this));
+		pub.addEvent(box, this.touchend, this.touchendEvent.bind(this));
+		
 	}
 
 	touchstartEvent(e){
@@ -112,8 +107,6 @@ class Tab {
 			pub.setTransitionDuration(tc, 0);
 		}
 
-		pub.addEvent(this.contentBox, this.touchmove, this.touchmoveEvent.bind(this));
-		pub.addEvent(this.contentBox, this.touchend, this.touchendEvent.bind(this));
 		//鼠标移出区域也要出发touchend事件
 		pub.addEvent(this.contentBox, 'mouseleave', this.touchendEvent.bind(this));
 	}
@@ -179,26 +172,12 @@ class Tab {
 
 		if(index === this.index || index < 0 || index >= total) return;
 		this.index = index;
-
-		if(this.params.slide){
-			this.setDuration(300);
-		}
-
 		pub.transitionEnd(current, () => {
 			this.switchTab(this.index);
-			this.setDuration(0);
-			this.finish(current, target);
-			//调整动画完成后的内容顺序
-			for(let i = 0, len = this.tabContents.length; i < len; i++){
-				if(i < this.index){
-					pub.setTransform(this.tabContents[i], 'translate3d('+ (-this.width) +'px, 0, 0)');
-				}else if(i > this.index){
-					pub.setTransform(this.tabContents[i], 'translate3d('+ this.width +'px, 0, 0)');
-				}				
-			}
 		});
 		pub.setTransform(current, 'translate3d('+ (d * this.width) +'px, 0, 0)');
-		pub.setTransform(target, 'translate3d(0, 0, 0)');		
+		pub.setTransform(target, 'translate3d(0, 0, 0)');
+		this.finish(current, target);
 	}
 
 	finish(cur, target){
@@ -226,17 +205,20 @@ class Tab {
 		this.timer = setInterval(() => {
 			let index = (this.index === this.tabButtons.length - 1) ? 0 : this.index + 1;
 			this.switchTab(index);
-			this.switchContent(index);
 		}, this.params.speed);
 	}
 
 	switchTab(index){
 		const tb = this.tabButtons,
-			  bc = this.params.buttonActiveClass;
+			  tc = this.tabContents,
+			  bc = this.params.buttonActiveClass,
+			  cc = this.params.contentActiveClass;
 
 		for(let i = 0, len = tb.length; i < len; i++){
 			if(i === index){
 				tb[i].classList.add(bc);
+				tc[i].classList.add(cc);
+				this.index = index;
 				//如果是其他切换方式
 				if(this.params.type === 'line'){
 					this.moveBg = this.container.querySelector('.tab-move-bg');
@@ -245,12 +227,21 @@ class Tab {
 				}
 			}else{
 				tb[i].classList.remove(bc);
+				if(!this.params.slide){
+					tc[i].classList.remove(cc);
+				}
 			}
 		}
 	}
 
-	switchContent(index){
-		this.go(index);
+	getIndex(index){
+		if(index > this.tabButtons.length){
+			return 0;
+		}else if(index < 0){
+			return this.tabButtons.length - 1;
+		}else{
+			return index;
+		}
 	}
 }
 
