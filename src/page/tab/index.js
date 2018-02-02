@@ -31,6 +31,7 @@ class Tab {
 
 		this.timer = null;
 		this.fading = false;
+		this.sliding = false;
 		this.index = 0;
 		this.init();
 	}
@@ -83,6 +84,8 @@ class Tab {
 	bindEvent(){
 		this.tabButtons.forEach((btn, index) => {
 			pub.addEvent(btn, this.params.tabEvent, () => {
+				if((this.params.effect === 'fade' && this.fading) || (this.params.effect === 'slide' && this.sliding)) return;
+
 				if(!btn.classList.contains(this.params.buttonActiveClass)){
 					this.switchTab(index);
 					this.switchContent(index);
@@ -190,6 +193,7 @@ class Tab {
 
 		if(this.params.effect === 'slide'){
 			this.setDuration(300);
+			this.sliding = true;
 			transitionendEvent = this.transitionend.bind(this, index, current);
 			pub.transitionEnd(current, transitionendEvent);
 		}
@@ -215,10 +219,11 @@ class Tab {
 				pub.setTransform(this.tabContents[i], 'translate3d('+ this.width +'px, 0, 0)');
 			}
 		}
-		//面向对象移除事件监听有问题
+		//移除事件监听
 		pub.delTransitionEnd(current, transitionendEvent);
 		transitionendEvent = null;
 		
+		this.sliding = false;
 		this.params.onTabEnd && this.params.onTabEnd.call(this, index, this.tabContents[index]);
 	}
 
@@ -252,8 +257,6 @@ class Tab {
 	}
 
 	switchTab(index){
-		if(this.params.effect === 'fade' && this.fading) return;
-
 		const tb = this.tabButtons,
 			  bc = this.params.buttonActiveClass;
 
@@ -337,8 +340,8 @@ const tab4 = new Tab('#tab-line', {
 });
 const tab5 = new Tab('#tab-default-4', {
 	effect: 'slide',
-	onTabEnd(){
-		console.log(1)
+	onTabEnd(i, val){
+		console.log(i);
 	}
 });
 const tab6 = new Tab('#tab-default-5', {
