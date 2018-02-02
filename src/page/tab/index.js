@@ -1,6 +1,8 @@
 import './index.css';
 import pub from 'util/public.js';
 
+let transitionendEvent = null;
+
 class Tab {
 	constructor(container, params = {}){
 		const defaults = {
@@ -9,7 +11,8 @@ class Tab {
 			autoPlay: false,
 			speed: 2000,
 			buttonActiveClass: 'active',
-			slide: false
+			effect: '',
+			onTabEnd: function(){}
 		}
 		this.params = Object.assign({}, defaults, params);
 		this.container = typeof container === 'string' ? document.querySelector(container) : container;	
@@ -27,6 +30,7 @@ class Tab {
 		this.moving = false;
 
 		this.timer = null;
+		this.fading = false;
 		this.index = 0;
 		this.init();
 	}
@@ -41,7 +45,7 @@ class Tab {
 		//给按钮绑定事件
 		this.bindEvent();
 		//绑定滑动事件
-		if(this.params.slide){
+		if(this.params.effect === 'slide'){
 			this.bindSlider();
 		}
 		//自动切换
@@ -59,9 +63,12 @@ class Tab {
 			let tc = this.tabContents[i];
 			pub.setTransitionDuration(tc, 0);
 			if(i === 0) continue;
+			if(this.params.effect === 'fade'){
+				tc.style.opacity = 0;
+			}
 			pub.setTransform(tc, 'translate3d('+ this.width +'px, 0, 0)');
 		}
-		if(this.params.slide){
+		if(this.params.effect === 'slide'){
 			current.classList.add('play');
 		}
 	}
@@ -155,12 +162,13 @@ class Tab {
 
 		if(move < -minRange && next){
 			this.next();
+			return;
 		}else if(move > minRange && prev){
 			this.prev();
+			return;
 		}else{
 			this.reset();
-		}
-		this.switchTab(this.index);
+		}		
 	}
 
 	next(){
@@ -180,25 +188,38 @@ class Tab {
 		if(index === this.index || index < 0 || index >= total) return;
 		this.index = index;
 
-		if(this.params.slide){
+		if(this.params.effect === 'slide'){
 			this.setDuration(300);
+			transitionendEvent = this.transitionend.bind(this, index, current);
+			pub.transitionEnd(current, transitionendEvent);
 		}
 
-		pub.transitionEnd(current, () => {
-			this.switchTab(this.index);
-			this.setDuration(0);
-			this.finish(current, target);
-			//调整动画完成后的内容顺序
-			for(let i = 0, len = this.tabContents.length; i < len; i++){
-				if(i < this.index){
-					pub.setTransform(this.tabContents[i], 'translate3d('+ (-this.width) +'px, 0, 0)');
-				}else if(i > this.index){
-					pub.setTransform(this.tabContents[i], 'translate3d('+ this.width +'px, 0, 0)');
-				}				
-			}
-		});
 		pub.setTransform(current, 'translate3d('+ (d * this.width) +'px, 0, 0)');
-		pub.setTransform(target, 'translate3d(0, 0, 0)');		
+		pub.setTransform(target, 'translate3d(0, 0, 0)');
+		if(this.params.effect !== 'slide'){
+			this.params.onTabEnd && this.params.onTabEnd.call(this, index, this.tabContents[index]);
+		}
+	}
+
+	transitionend(index, current){
+		let target = this.tabContents[index];
+
+		this.switchTab(index);
+		this.setDuration(0);
+		this.finish(current, target);
+		//调整动画完成后的内容顺序
+		for(let i = 0, len = this.tabContents.length; i < len; i++){
+			if(i < index){
+				pub.setTransform(this.tabContents[i], 'translate3d('+ (-this.width) +'px, 0, 0)');
+			}else if(i > index){
+				pub.setTransform(this.tabContents[i], 'translate3d('+ this.width +'px, 0, 0)');
+			}
+		}
+		//面向对象移除事件监听有问题
+		pub.delTransitionEnd(current, transitionendEvent);
+		transitionendEvent = null;
+		
+		this.params.onTabEnd && this.params.onTabEnd.call(this, index, this.tabContents[index]);
 	}
 
 	finish(cur, target){
@@ -231,6 +252,8 @@ class Tab {
 	}
 
 	switchTab(index){
+		if(this.params.effect === 'fade' && this.fading) return;
+
 		const tb = this.tabButtons,
 			  bc = this.params.buttonActiveClass;
 
@@ -250,7 +273,55 @@ class Tab {
 	}
 
 	switchContent(index){
+		if(this.params.effect === 'fade'){
+			this.fade(index);
+			return;
+		}
 		this.go(index);
+	}
+
+	fade(index){
+		if(!this.fading){
+			this.fading = true;
+			this.fadeOut(this.tabContents[this.index])
+			.then(() => {
+				pub.setTransform(this.tabContents[index], 'translate3d(0, 0, 0)');
+				return this.fadeIn(this.tabContents[index]);
+			}).then(() => {
+				this.index = index;
+				this.fading = false;
+				this.params.onTabEnd && this.params.onTabEnd.call(this, this.index, this.tabContents[this.index]);
+			});
+		}
+			
+	}
+
+	fadeOut(elem){
+		return new Promise((resolve, reject) => {
+			this.opTimer = setInterval(() => {
+				let nowOpacity = pub.getStyle(elem, 'opacity') * 100;
+				if(nowOpacity <= 0){
+					resolve();
+					clearInterval(this.opTimer);
+					return;
+				}
+				elem.style.opacity = (nowOpacity - 10) / 100;
+			}, 20);
+		});
+	}
+
+	fadeIn(elem){
+		return new Promise((resolve, reject) => {
+			this.opTimer = setInterval(() => {
+				let nowOpacity = pub.getStyle(elem, 'opacity') * 100;
+				if(nowOpacity >=100){
+					resolve();
+					clearInterval(this.opTimer);
+					return;
+				}
+				elem.style.opacity = (nowOpacity + 10) / 100;
+			}, 20);
+		});
 	}
 }
 
@@ -265,6 +336,11 @@ const tab4 = new Tab('#tab-line', {
 	type: 'line'
 });
 const tab5 = new Tab('#tab-default-4', {
-	slide: true
+	effect: 'slide',
+	onTabEnd(){
+		console.log(1)
+	}
 });
-
+const tab6 = new Tab('#tab-default-5', {
+	effect: 'fade'
+});

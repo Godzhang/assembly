@@ -122,10 +122,37 @@
 	<div class="explain">
 		<p>开启滑动切换(可滑动内容切换)</p>
 		<p>new Tab('#tab-default-4', {</p>
-		<p>slide: true,</p>
+		<p>effect: 'slide',</p>
 		<p>});</p>
 	</div>
 
-	<h1 style="height: 50px;line-height: 50px;font-size: 30px;text-align: center;margin: 20px 0;">未实现效果：淡入淡出切换</h1>
+	<div class="tab-container tab-default" id="tab-default-5">
+		<div class="tab-nav">
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
+				<a href="javascript:;" class="tab-button">更多</a>
+			</div>
+		</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item" style="background: #f00;">热门文章</div>
+				<div class="tab-item" style="background: #f0f;">最新文章</div>
+				<div class="tab-item" style="background: #ff0;">一周热门</div>
+				<div class="tab-item" style="background: #0f0;">更多</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="explain">
+		<p>淡入淡出切换</p>
+		<p>new Tab('#tab-default-5', {</p>
+		<p>effect: 'fade',</p>
+		<p>});</p>
+	</div>
+
+	<h2>面向对象移除事件监听问题</h2>
+
 </body>
 </html>

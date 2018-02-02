@@ -42,13 +42,12 @@ window.onload = function(){
 	wrapper.addEventListener('mousemove', function(e){
 		if(flag){
 			move = e.pageX - startX;
-            console.log(move + pos)
 			wrapper.style.transform = 'translate3d('+ (move + pos) +'px, 0, 0)';
 		}
 	}, false);
 
     wrapper.addEventListener('mouseup', mouseup, false);
-	// wrapper.addEventListener('mouseleave', mouseup, false);
+	wrapper.addEventListener('mouseleave', mouseup, false);
 
     function mouseup(){
         flag = false;
@@ -66,14 +65,16 @@ window.onload = function(){
 
         wrapper.addEventListener('transitionend', function(){
             wrapper.style.transitionDuration = '0ms';
-
-            if(i === 0){
-                wrapper.style.transform = 'translate3d('+ (-(length - 2) * width) +'px, 0, 0)';
-                i = 0;
-            }else if(i === length - 1){
-                wrapper.style.transform = 'translate3d('+ (-width) +'px, 0, 0)';
-                i = length - 1;
-            }
+            move = 0;
+            if(loop){
+            	if(i === 0){
+	                wrapper.style.transform = 'translate3d('+ (-(length - 2) * width) +'px, 0, 0)';
+	                i = length - 2;
+	            }else if(i === length - 1){
+	                wrapper.style.transform = 'translate3d('+ (-width) +'px, 0, 0)';
+	                i = 1;
+	            }
+            }     
         }, false);
     }
 

@@ -1,6 +1,8 @@
 import './index.css';
 import pub from 'util/public.js';
 
+let transitionendEvent = null;
+
 class Tab {
 	constructor(container, params = {}){
 		const defaults = {
@@ -144,7 +146,7 @@ class Tab {
 		prev && pub.setTransitionDuration(prev, 300);
 
 		this.move = 0;
-		pub.removeEvent(this.contentBox, 'mouseleave', this.touchendEvent.bind(this));
+		// pub.removeEvent(this.contentBox, 'mouseleave', this.touchendEvent.bind(this));
 
 		if(move < -minRange && next){
 			this.next();
