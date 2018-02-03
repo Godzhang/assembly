@@ -20,7 +20,7 @@ class Tab {
 		this.tabContents = Array.from(this.container.querySelectorAll('.tab-item'));
 		this.contentBox = this.container.querySelector('.tab-body');
 
-		this.isTouch = 'touchstart' in window;
+		this.isTouch = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent);
 		this.touchstart = this.isTouch ? 'touchstart' : 'mousedown';
 		this.touchmove = this.isTouch ? 'touchmove' : 'mousemove';
 		this.touchend = this.isTouch ? 'touchend' : 'mouseup';
@@ -103,7 +103,11 @@ class Tab {
 	}
 
 	bindSlider(){
-		pub.addEvent(this.contentBox, this.touchstart, this.touchstartEvent.bind(this));
+		this._touchstartEvent = this.touchstartEvent.bind(this);
+		this._touchmoveEvent = this.touchmoveEvent.bind(this);
+		this._touchendEvent = this.touchendEvent.bind(this);
+
+		pub.addEvent(this.contentBox, this.touchstart, this._touchstartEvent);
 	}
 
 	touchstartEvent(e){
@@ -122,10 +126,10 @@ class Tab {
 			pub.setTransitionDuration(tc, 0);
 		}
 
-		pub.addEvent(this.contentBox, this.touchmove, this.touchmoveEvent.bind(this));
-		pub.addEvent(this.contentBox, this.touchend, this.touchendEvent.bind(this));
+		pub.addEvent(this.contentBox, this.touchmove, this._touchmoveEvent);
+		pub.addEvent(this.contentBox, this.touchend, this._touchendEvent);
 		//鼠标移出区域也要出发touchend事件
-		pub.addEvent(this.contentBox, 'mouseleave', this.touchendEvent.bind(this));
+		pub.addEvent(this.contentBox, 'mouseleave', this._touchendEvent);
 	}
 
 	touchmoveEvent(e){
@@ -161,7 +165,7 @@ class Tab {
 		prev && pub.setTransitionDuration(prev, 300);
 
 		this.move = 0;
-		pub.removeEvent(this.contentBox, 'mouseleave', this.touchendEvent.bind(this));
+		pub.removeEvent(this.contentBox, 'mouseleave', this._touchendEvent);
 
 		if(move < -minRange && next){
 			this.next();

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>选项卡</title>
+<link href="/dist/css/common.css?15b0b33bd839e3b74e4d" rel="stylesheet"><link href="/dist/css/tab.css?15b0b33bd839e3b74e4d" rel="stylesheet"></head>
+<body>
+	<div class="tab-container tab-default" id="tab-default">
+		<div class="tab-nav">
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
+			</div>
+		</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item">热门文章</div>
+				<div class="tab-item">最新文章</div>
+				<div class="tab-item">一周热门</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="explain">
+		<p>默认点击切换</p>
+		<p>new Tab('#tab-default');</p>
+	</div>
+
+	<div class="tab-container tab-default" id="tab-default-2">
+		<div class="tab-nav">
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
+			</div>
+		</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item">热门文章</div>
+				<div class="tab-item">最新文章</div>
+				<div class="tab-item">一周热门</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="explain">
+		<p>触摸切换</p>
+		<p>new Tab('#tab-default-2', {</p>
+		<p>tabEvent: 'mouseover'</p>
+		<p>});</p>
+	</div>
+
+	<div class="tab-container tab-default" id="tab-default-3">
+		<div class="tab-nav">
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
+			</div>
+		</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item">热门文章</div>
+				<div class="tab-item">最新文章</div>
+				<div class="tab-item">一周热门</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="explain">
+		<p>自动切换</p>
+		<p>new Tab('#tab-default-3', {</p>
+		<p>autoPlay: true,</p>
+		<p>speed: 2000</p>
+		<p>});</p>
+	</div>
+
+	<div class="tab-container tab-line" id="tab-line">
+		<div class="tab-nav">
+			<div class="tab-move-bg"></div>
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
+			</div>
+		</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item">热门文章</div>
+				<div class="tab-item">最新文章</div>
+				<div class="tab-item">一周热门</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="explain">
+		<p>不同的切换样式</p>
+		<p>new Tab('#tab-line', {</p>
+		<p>type: 'line'</p>
+		<p>});</p>
+	</div>
+
+	<div class="tab-container tab-default" id="tab-default-4">
+		<div class="tab-nav">
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
+				<a href="javascript:;" class="tab-button">更多</a>
+			</div>
+		</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item" style="background: #f00;">热门文章</div>
+				<div class="tab-item" style="background: #f0f;">最新文章</div>
+				<div class="tab-item" style="background: #ff0;">一周热门</div>
+				<div class="tab-item" style="background: #0f0;">更多</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="explain">
+		<p>开启滑动切换(可滑动内容切换)</p>
+		<p>new Tab('#tab-default-4', {</p>
+		<p>effect: 'slide',</p>
+		<p>});</p>
+	</div>
+
+	<div class="tab-container tab-default" id="tab-default-5">
+		<div class="tab-nav">
+			<div class="tab-buttons">
+				<a href="javascript:;" class="tab-button">热门文章</a>
+				<a href="javascript:;" class="tab-button">最新文章</a>
+				<a href="javascript:;" class="tab-button">一周热门</a>
+				<a href="javascript:;" class="tab-button">更多</a>
+			</div>
+		</div>
+		<div class="tab-body">
+			<div class="tab-list">
+				<div class="tab-item" style="background: #f00;">热门文章</div>
+				<div class="tab-item" style="background: #f0f;">最新文章</div>
+				<div class="tab-item" style="background: #ff0;">一周热门</div>
+				<div class="tab-item" style="background: #0f0;">更多</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="explain">
+		<p>淡入淡出切换</p>
+		<p>new Tab('#tab-default-5', {</p>
+		<p>effect: 'fade',</p>
+		<p>});</p>
+	</div>
+
+<script type="text/javascript" src="/dist/js/base.js?15b0b33bd839e3b74e4d"></script><script type="text/javascript" src="/dist/js/tab.js?15b0b33bd839e3b74e4d"></script></body>
+</html>
