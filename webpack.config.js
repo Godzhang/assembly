@@ -32,6 +32,7 @@ var config = {
 		'slider': ['./src/page/slider/index.js'],
 		'tab': ['./src/page/tab/index.js'],
 		'focus': ['./src/page/focus/index.js'],
+		'range': ['./src/page/range/index.js'],
 		'editor': ['./src/page/editor/index.js'],
 		'scrollbar': ['./src/page/scrollbar/index.js'],
 		'form-beautify': ['./src/page/form-beautify/index.js'],
@@ -40,7 +41,8 @@ var config = {
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'js/[name].js',
-		publicPath: '/assembly/dist/'
+		// publicPath: '/assembly/dist/'
+		publicPath: '/dist/'
 	},
 	resolve: {
 		alias: {
@@ -100,6 +102,7 @@ var config = {
 		new HtmlWebpackPlugin(getHtmlConfig('slider', '滑块')),
 		new HtmlWebpackPlugin(getHtmlConfig('tab', '选项卡')),
 		new HtmlWebpackPlugin(getHtmlConfig('focus', '轮播图')),
+		new HtmlWebpackPlugin(getHtmlConfig('range', '滑动条')),
 		new HtmlWebpackPlugin(getHtmlConfig('editor', '富文本编辑器')),
 		new HtmlWebpackPlugin(getHtmlConfig('scrollbar', '自定义滚动条')),
 		new HtmlWebpackPlugin(getHtmlConfig('form-beautify', '表单美化')),

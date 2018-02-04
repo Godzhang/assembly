@@ -75,6 +75,7 @@ class Focus{
         this._moving = this.moving.bind(this);
         this._moveEnd = this.moveEnd.bind(this);
 
+        pub.addEvent(this.list, this.touchstart, (e) => {e.preventDefault();});
         pub.addEvent(this.list, this.touchstart, this._moveStart);
         
     }
@@ -121,6 +122,7 @@ class Focus{
         }else if(this.move !== 0){
             this.reset();
         }
+        pub.removeEvent(this.list, this.touchstart, this._moveStart);
         pub.removeEvent(this.list, this.touchmove, this._moving);
         pub.removeEvent(this.list, this.touchend, this._moveEnd);
         pub.removeEvent(this.list, 'mouseleave', this._moveEnd);
@@ -211,6 +213,7 @@ class Focus{
         if(this.params.slide){
             this.move = 0;
             this.isMoving = false;
+            pub.addEvent(this.list, this.touchstart, this._moveStart);
         }
         this.index = this.nextIndex;
         this.flag = true;
@@ -224,11 +227,11 @@ class Focus{
 }
 
 new Focus(document.querySelector('.container'), {
-    list: '#list',
+    list: '.list',
     item: '.slide',
-    point: '#point',
-    prev: '#prev',
-    next: '#next',
+    point: '.point',
+    prev: '.prev',
+    next: '.next',
     slide: true
 });
 
