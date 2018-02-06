@@ -31,14 +31,14 @@ function Compile(template){
 	code.push(`return r.join(\'\')`);
 
 	fn = new Function(code.join('\n'));
-console.log(fn)
+
 	this.render = function(model){
 		return fn.apply(model);
 	}
 }
 const compile = new Compile(tpl);
-console.log(compile.render(obj));
-
+const template = compile.render(obj);
+box.innerHTML = template;
 
 
 

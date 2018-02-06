@@ -1,65 +1,91 @@
 import './index.css';
 import pub from 'util/public.js';
 
-class LazyIScroll {
+class ScrollBar{
 	constructor(container, params = {}){
 		const t = this;
 		const defaults = {
-			scrollbar: true,
-			fadeScrollbar: false,
-			bounce: false
+
 		}
 		this.params = Object.assign({}, defaults, params);
 		//此处省略container其他情况，只考虑字符串
 		this.container = document.querySelector(container);
+		this.wrapper = this.container.firstElementChild;
 		//检测是否是firfox浏览器
 		this.isMoz = 'MozTransform' in document.createElement('div').style;
-		this.isTouch = 'touchstart' in window;
+		this.isTouch = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent);
 		this.touchstart = this.isTouch ? 'touchstart' : 'mousedown';
 		this.touchmove = this.isTouch ? 'touchmove' : 'mousemove';
 		this.touchend = this.isTouch ? 'touchend' : 'mouseup';
 		this.wheelEvent = this.isTouch ? 'DOMMouseScroll' : 'mousewheel';
-		this.isPressed = false;
-		this.mouseXY = {};
+		
+		this.delta = null;
+		this.scrollPos = 0;
+		this.topPos = 0;
+		this.bottomPos = this.container.offsetHeight - this.wrapper.offsetHeight;
 
 		this.init();
 	}
 
 	init(){
+		this.createScrollbar();
 		this.bindEvent();
 	}
 
+	createScrollbar(){
+		this.scrollBox = document.createElement('div');
+		this.scrollBox.className = 'scroll-box';
+		this.scrollRail = document.createElement('div');
+		this.scrollRail.className = 'scroll-rail';
+		this.scrollBar = document.createElement('div');
+		this.scrollBar.className = 'scroll-bar';
+		this.scrollBox.appendChild(this.scrollRail);
+		this.scrollBox.appendChild(this.scrollBar);
+		this.container.appendChild(this.scrollBox);
+
+		this.scrollHeight = Math.abs(this.bottomPos);	//容器的可滚动距离
+		this.barScrollHeight = this.scrollBox.offsetHeight - this.scrollBar.offsetHeight;	//滚动条的可滚动距离
+		this.percent = this.barScrollHeight / this.scrollHeight;
+	}
+
 	bindEvent(){
-		// pub.addEvent(this.container, this.touchstart, (e) => {
+		pub.addEvent(this.container, this.wheelEvent, (e) => {
+			e.preventDefault();
+			this.delta = this.isMoz ? (-e.detail/3) : e.wheelDelta/120;
+			this.scroll();
 			
-		// })
+		});
 	}
 
-	css(dom, styles){
-		for(let s in styles){
-			dom.style[s] = styles[s];
+	scroll(){
+		if(this.delta < 0){	//向下滚动
+			if(this.scrollPos > this.topPos){
+				this.scrollPos = this.topPos;
+			}else if(this.scrollPos < this.bottomPos){
+				this.scrollPos = this.bottomPos;
+			}else{
+				this.scrollPos -= 10;
+			}
+			pub.setTransform(this.wrapper, `translate3d(0, ${this.scrollPos}px, 0)`);
+			pub.setTransform(this.scrollBar, `translate3d(0, ${-this.scrollPos * this.percent}px, 0)`);
+		}else{	//向上滚动
+			if(this.scrollPos > this.topPos){
+				this.scrollPos = this.topPos;
+			}else if(this.scrollPos < this.bottomPos){
+				this.scrollPos = this.bottomPos;
+			}else{
+				this.scrollPos += 10;
+			}
+			pub.setTransform(this.wrapper, `translate3d(0, ${this.scrollPos}px, 0)`);
+			pub.setTransform(this.scrollBar, `translate3d(0, ${-this.scrollPos * this.percent}px, 0)`);
 		}
 	}
-	
-	getPoint(event){
-		/*将当前的触摸点坐标值减去元素的偏移位置，返回触摸点相对于element的坐标值*/
-		event = event || window.event;
-		let touchEvent = this.isTouch ? event.changedTouches[0] : event;
-		let x = (touchEvent.pageX || touchEvent.clientX + document.body.scrollLeft + document.documentElement.scrollLeft);
-		x -= this.container.offsetLeft;
-		let y = (touchEvent.pageY || touchEvent.clientY + document.body.scrollTop + document.documentElement.scrollTop);
-		y -= this.container.offsetTop;
-
-		return {
-			x,
-			y
-		}
-	}
-
 
 }
 
+new ScrollBar('.scroll-container', {
 
+});
 
 
 

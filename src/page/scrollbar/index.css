@@ -1,24 +1,43 @@
-.lazy-iscroll{
-    position:relative;
-    width:300px;
-    height:300px;
-    overflow: hidden;
+.scroll-container{
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 350px auto 0;
+    background: #ddd;
+    /*overflow: hidden;*/
 }
-.lazy-iscroll-wrapper{
-    background:#ddd;
-    height:600px;
+.scroll-wrapper{
+    width: 270px;
+    height: 1000px;
+    background: #08c;
+    margin-left: 10px;
+    /*transition: all .5s;*/
 }
-.lazy-iscroll-wrapper {
+.scroll-wrapper div{color: #fff;font-size: 30px;}
+.scroll-box{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 10px;
+}
+.scroll-rail{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1;
-    -webkit-touch-callout: none;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    transition-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
-    transform-origin: 0px 0px 0px;
-    -webkit-transition-property: transform;
-    transition-property: transform;
-    transition-duration: 0ms;
+    height: 100%;
 }
+.scroll-bar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: #f00;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+
