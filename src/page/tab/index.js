@@ -100,6 +100,10 @@ class Tab {
 				this.run();
 			});
 		}
+		if(this.params.type === 'line'){
+			this.moveBg = this.container.querySelector('.tab-move-bg');
+			this.moveBg.style.width = parseInt(pub.getStyle(this.tabButtons[0], 'width')) + 'px';
+		}
 	}
 
 	bindSlider(){

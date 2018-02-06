@@ -7,12 +7,75 @@
 </head>
 <body>
     
-    <div class="range-box range-box-1 example">
-        <div class="range-bar"></div>
-        <div class="range-bar range-bar-active"></div>
-        <div class="range-hand"></div>
-        <span class="range-info">0</span>
+    <div class="container">
+    	<div class="range-box range-box-1">
+	        <div class="range-bar"></div>
+	        <div class="range-bar range-bar-active"></div>
+	        <div class="range-hand"></div>
+	        <span class="range-info">0</span>
+	    </div>
+
+	    <div class="explain">
+			<p>无参数，默认从0-100</p>
+			<pre><code>new Range('.range-box-1');</code></pre>
+		</div>
     </div>
+
+    <div class="container">
+    	<div class="range-box range-box-2">
+	        <div class="range-bar"></div>
+	        <div class="range-bar range-bar-active"></div>
+	        <div class="range-hand"></div>
+	        <span class="range-info">0</span>
+	    </div>
+
+	    <div class="explain">
+	    	<p>设置范围</p>
+	    	<pre><code>new Range('.range-box-2', {
+    min: 0,
+    max: 10
+});</code></pre>
+		</div>
+    </div>
+
+    <div class="container">
+    	<div class="range-box range-box-3">
+	        <div class="range-bar"></div>
+	        <div class="range-bar range-bar-active"></div>
+	        <div class="range-hand"></div>
+	        <span class="range-info">0</span>
+	    </div>
+
+	    <div class="explain">
+			<p>设置默认显示的值</p>
+			<pre><code>new Range('.range-box-3', {
+    value: 30,
+});</code></pre>
+		</div>
+    </div>
+
+    <div class="container">
+    	<div class="range-box range-box-4">
+	        <div class="range-bar"></div>
+	        <div class="range-bar range-bar-active"></div>
+	        <div class="range-hand"></div>
+	        <span class="range-info">0</span>
+	    </div>
+
+	    <div class="explain">
+			<p>设置移动的步长</p>
+			<pre><code>new Range('.range-box-4', {
+	step: 10,
+	onSlide(val){	    //当前值变化时触发
+		console.log('变化值:', val);
+	},
+	onSlideEnd(val){ 	//当前值变化后触发
+		console.log('结束值:' val);
+	} 	
+});</code></pre>
+		</div>
+    </div>
+	    
 
 </body>
 </html>

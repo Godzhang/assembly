@@ -53,3 +53,18 @@ img{display: block;}
 .pa{position: absolute;}
 
 .cover{position: absolute;top: 0;left: 0;width: 100%;height: 100%;overflow: hidden;}
+/* 效果说明样式 */
+.explain{
+    width: 500px;
+    margin: 20px auto 0;
+    padding: 10px;
+    border: 1px dotted #aaa;
+    line-height: 20px;
+    font-size: 14px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.explain pre{background: #eee;padding: 0 10px;}
+@media screen and (max-width: 960px){
+    .explain{width: 100%;}
+}

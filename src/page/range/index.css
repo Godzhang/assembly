@@ -1,11 +1,17 @@
-.example{
-    margin: 50px;
+.container{
+    width: 1000px;
+    margin: 50px auto;
+}
+
+@media screen and (max-width: 960px){
+    .container{width: 100%;}
 }
 
 .range-box{
     position: relative;
     width: 200px;
     height: 30px;
+    margin: 0 auto;
 }
 
 .range-bar{
@@ -38,8 +44,8 @@
 
 .range-info{
     position: absolute;
-    top: -40px;
-    left: 0;
+    top: 0;
+    left: 220px;
     padding: 0 5px;
     height: 30px;
     line-height: 30px;
@@ -49,7 +55,17 @@
     border-radius: 5px;
 }
 
-
+/* 效果说明样式 */
+.explain{
+    width: 500px;
+    margin: 20px auto 0;
+    padding: 10px;
+    border: 1px dotted #aaa;
+    line-height: 20px;
+    font-size: 14px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
 
 

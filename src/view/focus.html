@@ -8,18 +8,44 @@
 <body>
 	
     <div class="container">
-        <div class="focus">
-            <ul class="list">
-                <li class="slide"><a href="javascript:;"><img src="<%= require('../assets/image/queen/q-1.jpg') %>" alt=""></a></li>
-                <li class="slide"><a href="javascript:;"><img src="<%= require('../assets/image/queen/q-2.jpg') %>" alt=""></a></li>
-                <li class="slide"><a href="javascript:;"><img src="<%= require('../assets/image/queen/q-3.jpg') %>" alt=""></a></li>
-                <li class="slide"><a href="javascript:;"><img src="<%= require('../assets/image/queen/q-4.jpg') %>" alt=""></a></li>
-            </ul>
+        <div class="focus-box">
+            <div class="focus">
+                <ul class="list">
+                    <li class="slide"><a href="javascript:;"><img src="<%= require('../assets/image/queen/q-1.jpg') %>" alt=""></a></li>
+                    <li class="slide"><a href="javascript:;"><img src="<%= require('../assets/image/queen/q-2.jpg') %>" alt=""></a></li>
+                    <li class="slide"><a href="javascript:;"><img src="<%= require('../assets/image/queen/q-3.jpg') %>" alt=""></a></li>
+                    <li class="slide"><a href="javascript:;"><img src="<%= require('../assets/image/queen/q-4.jpg') %>" alt=""></a></li>
+                </ul>
+            </div>
+            <div class="point"></div>
+            <a href="javascript:;" class="arr prev"></a>
+            <a href="javascript:;" class="arr next"></a>
         </div>
-        <div class="point"></div>
-        <a href="javascript:;" class="arr prev"></a>
-        <a href="javascript:;" class="arr next"></a>
+
+        <div class="explain">
+            <pre><code>new Focus('.focus-box', {    //最外层父容器
+    list: '.list',      //子项父容器
+    item: '.slide',     //子项
+    point: '.point',    //焦点容器
+    pointTag： 'b',     //焦点标签
+    active: 'act',      //焦点触发类
+    pointEvent: 'click',//焦点绑定事件
+    prev: '.prev',      //向前箭头
+    next: '.next',      //向后箭头
+    event: 'click',     //箭头绑定事件
+    slide: true,        //是否开启拖拽滑动功能，默认为false
+    minRange: 100,      //滑动最小切换值，滑动距离小于100恢复原位
+    time: 4000,         //自动轮播间隔，默认为0,不轮播
+    speed: 300,         //切换速度,单位ms
+    onSlideEnd(i, val){ //切换结束触发
+        //i: 当前索引
+        //val: 当前项
+    }
+});
+            </code></pre>
+        </div>
     </div>
+        
 
 </body>
 </html>

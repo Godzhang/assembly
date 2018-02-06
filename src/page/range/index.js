@@ -8,9 +8,10 @@ class Range{
             max: 100,
             value: 0,   //默认显示的值
             step: 1,
-            onSlide: function(){}
+            onSlide: function(){},
+            onSlideEnd: function(){}
         }, params);
-        this.container = container;
+        this.container = typeof container === 'string' ? document.querySelector(container) : container;
         this.bar = this.container.querySelectorAll('.range-bar')[1];
         this.hand = this.container.querySelector('.range-hand');
         this.info = this.container.querySelector('.range-info');
@@ -131,11 +132,18 @@ class Range{
     }
 }
 
-new Range(document.querySelector('.range-box-1'), {
+new Range('.range-box-1');
+new Range('.range-box-2', {
     min: 0,
-    max: 100,
+    max: 10
+});
+new Range('.range-box-3', {
+    value: 30
+});
+new Range('.range-box-4', {
+    step: 10,
     onSlide(val){
-        console.log(val);
+        console.log(`变化值: ${val}`);
     },
     onSlideEnd(val){
         console.log(`结束值: ${val}`);

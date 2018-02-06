@@ -33,6 +33,7 @@ header h2{
 }
 .assembly-list ul li a:hover{
 	color: #f00;
+	text-decoration: underline;
 }
 
 

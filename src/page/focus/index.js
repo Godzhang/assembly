@@ -14,7 +14,7 @@ class Focus{
             minRange: 100,
             onSlideEnd: function(){}
         }, options);
-        this.container = container;
+        this.container = typeof container === 'string' ? document.querySelector(container) : container;
         this.list = this.container.querySelector(this.params.list);
         this.item = [...this.list.querySelectorAll(this.params.item)];
         this.len = this.item.length;
@@ -46,7 +46,7 @@ class Focus{
             this.bindPointEvent();
         }
         //自动轮播
-        if(this.params.time){
+        if(this.params.time > 0){
             this.run();
             pub.addEvent(this.container, 'mouseover', () => {
                 clearInterval(this.timer);
@@ -152,7 +152,7 @@ class Focus{
     bindPointEvent(){
         const point = [...this.point.children];
         point.forEach((val, index) => {
-            pub.addEvent(val, this.params.event, () => {
+            pub.addEvent(val, this.params.pointEvent, () => {
                 if(index < this.index){
                     this.nextIndex = index;
                     this.moveTo('left');
@@ -226,7 +226,7 @@ class Focus{
     }
 }
 
-new Focus(document.querySelector('.container'), {
+new Focus('.focus-box', {
     list: '.list',
     item: '.slide',
     point: '.point',
