@@ -11,7 +11,14 @@
     -webkit-transition-duration: 0;
     transition-duration: 0;
 }
-.scroll-box{
+.scroll-box-x{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 10px;
+    width: 100%;
+}
+.scroll-box-y{
     position: absolute;
     top: 0;
     right: 0;
@@ -20,28 +27,40 @@
 }
 .scroll-rail{
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     background: #ebebeb;
     border-radius: 10px;
+}
+.scroll-box-x .scroll-rail{
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+}
+.scroll-box-y .scroll-rail{
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
 }
 .scroll-bar{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100px;
+    height: 100%;
     background: #cc0033;
     border-radius: 10px;
     cursor: pointer;
-    -webkit-transition-property: all;    
+    -webkit-transition-property: all;
     transition-property: all;
     -webkit-transition-duration: 0;
     transition-duration: 0;
 }
-
+.scroll-bar:hover{
+    background: #f00;
+}
 
 
 

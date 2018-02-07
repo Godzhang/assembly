@@ -1,16 +1,11 @@
-.container{
+.container-1{
     position: relative;
     width: 1000px;
     height: 500px;
-    margin: 100px;
-    border: 1px solid #aaa;
+    border: 1px solid #000;
     overflow: hidden;
 }
-.wrapper{
-    position: relative;
-    width: 300px;
-}
-.list{
+.container-1 .list{
     width: 90%;
     padding: 10px;
     margin: 0 auto;
@@ -19,4 +14,20 @@
 }
 
 
-
+.container-2{
+    position: relative;
+    width: 1000px;
+    height: 500px;
+    margin-top: 30px;
+    border: 1px solid #000;
+    overflow: hidden;
+}
+.container-2 .list{
+    width: 4160px;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 20px;
+}
+.container-2 .list div{
+    float: left;
+}

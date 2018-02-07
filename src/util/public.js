@@ -97,6 +97,24 @@ const pub = {
 	},
 	getStyle(elem, attr){
 		return ('getComputedStyle' in window) ? getComputedStyle(elem, false)[attr] : elem.currentStyle[attr];
+	},
+	getOffsetTop(elem){
+		let tmp = elem.offsetTop;
+		let parent = elem.offsetParent;
+		while(parent != null){
+			tmp += parent.offsetTop;
+			parent = parent.offsetParent;
+		}
+		return tmp;
+	},
+	getOffsetLeft(elem){
+		let tmp = elem.offsetLeft;
+		let parent = elem.offsetParent;
+		while(parent != null){
+			tmp += parent.offsetLeft;
+			parent = parent.offsetParent;
+		}
+		return tmp;
 	}
 }
 
