@@ -1,0 +1,53 @@
+.scroll-container{
+    position: relative;
+    height: 100%;
+    max-width: 100%;
+	overflow: hidden;
+}
+.scroll-wrapper{
+    position: relative;
+    -webkit-transition-property: all;    
+    transition-property: all;
+    -webkit-transition-duration: 0;
+    transition-duration: 0;
+}
+.scroll-box{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 10px;
+}
+.scroll-rail{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ebebeb;
+    border-radius: 10px;
+}
+.scroll-bar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: #cc0033;
+    border-radius: 10px;
+    cursor: pointer;
+    -webkit-transition-property: all;    
+    transition-property: all;
+    -webkit-transition-duration: 0;
+    transition-duration: 0;
+}
+
+
+
+
+
+
+
+
+
+

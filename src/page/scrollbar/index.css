@@ -1,42 +1,21 @@
-.scroll-container{
+.container{
+    position: relative;
+    width: 1000px;
+    height: 500px;
+    margin: 100px;
+    border: 1px solid #aaa;
+    overflow: hidden;
+}
+.wrapper{
     position: relative;
     width: 300px;
-    height: 300px;
-    margin: 350px auto 0;
-    background: #ddd;
-    /*overflow: hidden;*/
 }
-.scroll-wrapper{
-    width: 270px;
-    height: 1000px;
-    background: #08c;
-    margin-left: 10px;
-    /*transition: all .5s;*/
-}
-.scroll-wrapper div{color: #fff;font-size: 30px;}
-.scroll-box{
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 10px;
-}
-.scroll-rail{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-.scroll-bar{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: #f00;
-    border-radius: 10px;
-    cursor: pointer;
+.list{
+    width: 90%;
+    padding: 10px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 
