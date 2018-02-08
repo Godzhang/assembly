@@ -17,6 +17,12 @@
               <div><img src="<%= require('../assets/image/queen/q-7.jpg') %>" alt=""></div>
         </div>
 	</div>
+
+    <div class="explain">
+        <p>默认纵向滚动</p>
+        <pre><code>new ScrollBar('.container-1');</code></pre>
+    </div>
+
     <div class="container-2">
         <div class="list clearfix">
               <div><img src="<%= require('../assets/image/queen/q-1.jpg') %>" alt=""></div>
@@ -27,6 +33,30 @@
               <div><img src="<%= require('../assets/image/queen/q-6.jpg') %>" alt=""></div>
               <div><img src="<%= require('../assets/image/queen/q-7.jpg') %>" alt=""></div>
         </div>
+    </div>
+
+    <div class="explain">
+        <p>横向滚动</p>
+        <pre><code>new ScrollBar('.container-2', {
+    direction: 'x'
+});</code></pre>
+    </div>
+
+    <div class="explain">
+        <p>参数配置</p>
+        <pre><code>new ScrollBar('.container', {
+    direction: 'x',         //滚动方向
+    wh: 100,                //滚动条宽或高
+    distance: 20,           //每次滚动条的滚动距离
+    initPos: 100,           //滚动条初始位置，默认为0
+    toTop: function(){},    //滚动到顶部触发
+    onScroll: function(pos1, pos2){ //滚动过程中触发
+        pos1    //滚动条位置
+        pos2    //滚动内容相对容器位移
+    },
+    toBottom: function(){}  //滚动到底部触发
+
+});</code></pre>
     </div>
 </body>
 </html>

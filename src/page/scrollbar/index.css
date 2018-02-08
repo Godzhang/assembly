@@ -1,7 +1,8 @@
 .container-1{
     position: relative;
-    width: 1000px;
+    width: 800px;
     height: 500px;
+    margin: 30px auto 0;
     border: 1px solid #000;
     overflow: hidden;
 }
@@ -12,22 +13,28 @@
     font-size: 14px;
     line-height: 20px;
 }
-
+.container-1 .list div, .container-1 .list div img{
+    width: 100%;
+}
 
 .container-2{
     position: relative;
-    width: 1000px;
-    height: 500px;
-    margin-top: 30px;
+    width: 800px;
+    height: 400px;
+    margin: 30px auto 0;
     border: 1px solid #000;
     overflow: hidden;
 }
 .container-2 .list{
-    width: 4160px;
+    width: 3670px;
     padding: 10px;
     font-size: 14px;
     line-height: 20px;
 }
 .container-2 .list div{
     float: left;
+    height: 360px;
+}
+.container-2 .list div img{
+    height: 100%;
 }

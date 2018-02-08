@@ -1,115 +1,105 @@
 import './index.css';
 import 'assets/css/font-awesome.css';
 import pub from 'util/public.js';
-import Core from 'util/timeline/core.js';
-
-// window.onload = function(){
-// 	const wrapper = document.querySelector('.wrapper');
-// 	let startX = null;
-// 	let move = 0;
-// 	let flag = false;
-// 	const minRange = 100;
-// 	const width = 500;
-// 	let i = 0;
-// 	let pos = null;
-//     let d = null;
-//     let isLoop = true;
-//     let length = document.querySelectorAll('.slide').length;
-//     //最好设置两个变量保存初始位置
-//     let firstPos,endPos;
-
-
-// 	wrapper.style.transform = 'translate3d(0, 0, 0)';
-    
-//     if(isLoop){
-//         loop();
-//         i = 1;
-//         wrapper.style.transform = 'translate3d('+ (-width) +'px, 0, 0)';
-//         length += 2;
-//     }  
-
-//     wrapper.addEventListener('mousedown', function(e){
-// 		flag = true;
-
-// 		startX = e.pageX;
-
-// 		pos = getComputedStyle(wrapper)['transform'];
-// 		pos = (/matrix\((.*)\)/.exec(pos))[1];
-// 		pos = pos.replace(/\s/g, '');
-// 		pos = Number(pos.split(',')[4]);
-// 	}, false);
-
-// 	wrapper.addEventListener('mousemove', function(e){
-// 		if(flag){
-// 			move = e.pageX - startX;
-// 			wrapper.style.transform = 'translate3d('+ (move + pos) +'px, 0, 0)';
-// 		}
-// 	}, false);
-
-//     wrapper.addEventListener('mouseup', mouseup, false);
-// 	wrapper.addEventListener('mouseleave', mouseup, false);
-
-//     function mouseup(){
-//         flag = false;
-//         wrapper.style.transitionDuration = '300ms';
-
-//         if(move > minRange){
-//             i = i <= 0 ? 0 : i - 1;
-//             wrapper.style.transform = 'translate3d('+ (-i * width) +'px, 0, 0)';
-//         }else if(move < -minRange){
-//             i = i >= length - 1 ? length - 1 : i + 1;
-//             wrapper.style.transform = 'translate3d('+ (-i * width) +'px, 0, 0)';
-//         }else{
-//             wrapper.style.transform = 'translate3d('+ (-i * width) +'px, 0, 0)';
-//         }
-
-//         wrapper.addEventListener('transitionend', function(){
-//             wrapper.style.transitionDuration = '0ms';
-//             move = 0;
-//             if(loop){
-//             	if(i === 0){
-// 	                wrapper.style.transform = 'translate3d('+ (-(length - 2) * width) +'px, 0, 0)';
-// 	                i = length - 2;
-// 	            }else if(i === length - 1){
-// 	                wrapper.style.transform = 'translate3d('+ (-width) +'px, 0, 0)';
-// 	                i = 1;
-// 	            }
-//             }     
-//         }, false);
-//     }
-
-//     function loop(){
-//         let firstClone = wrapper.firstElementChild.cloneNode();
-//         let lastClone = wrapper.lastElementChild.cloneNode();
-//         wrapper.insertBefore(lastClone, wrapper.firstElementChild);
-//         wrapper.appendChild(firstClone);
-//     }
-// }
 
 window.onload = function(){
-    const box = document.querySelector('#box');
-    const timeline = new Core({
-        duration: 5000,
-        value: [[0, 400], [0, 600], [1, 2.1]],
-        render(v1, v2, v3){
-            box.style.transform = `translate3d(${v1}px, ${v2}px, 0) scale(${v3})`;
-        },
-        timingFunction: 'linear',
-        onPlay: () => console.log('play'),
-        onEnd: () => console.log('end'),
-        onReset: () => console.log('reset'),
-        onStop: () => console.log('stop')
-    });
-    pub.addEvent(box, 'click', () => {
-        timeline.play();
-    });
+    
+    class Slider{
+        constructor(container, params = {}){
+            const defaults = {
+                wrapper: '.box'
+            }
+            this.container = document.querySelector(container);
+            this.params = Object.assign({}, defaults, params);
+            this.wrapper = this.container.querySelector(this.params.wrapper);
 
-    document.querySelector('#start').onclick = () => timeline.play();
-    document.querySelector('#end').onclick = () => timeline.end();
-    document.querySelector('#reset').onclick = () => timeline.reset();
-    document.querySelector('#stop').onclick = () => timeline.stop();
+            this.isTouch = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent);
+            this.touchstart = this.isTouch ? 'touchstart' : 'mousedown';
+            this.touchmove = this.isTouch ? 'touchmove' : 'mousemove';
+            this.touchend = this.isTouch ? 'touchend' : 'mouseup';
+            this.start = null;
+            this.move = null;
+            this.res = 0;
+            this.isMoving = false;
+            //内容可滑动的上下边界
+            this.top = 0;
+            this.bottom = this.container.offsetHeight - this.wrapper.offsetHeight;
+            //时间
+            this.startTime = null;
 
+            this.init();
+        }
 
+        init(){
+            this.bindEvent();
+        }
+
+        bindEvent(){
+            this._mousedown = this.mousedown.bind(this);
+            this._mousemove = this.mousemove.bind(this);
+            this._mouseup = this.mouseup.bind(this);
+
+            pub.addEvent(this.wrapper, this.touchstart, this._mousedown);
+        }
+
+        mousedown(e){
+            if(e.changedTouches){
+                e = e.changedTouches[0];
+            }
+            //设置开关
+            this.isMoving = true;
+            //记录初始位置
+            this.start = e.pageY;
+            //记录初始时间
+            this.startTime = Date.now();
+
+            pub.addEvent(this.wrapper, this.touchmove, this._mousemove);
+            pub.addEvent(this.wrapper, this.touchend, this._mouseup);
+            pub.addEvent(this.wrapper, 'mouseleave', this._mouseup);
+        }
+
+        mousemove(e){
+            if(!this.isMoving) return;
+            if(e.changedTouches){
+                e = e.changedTouches[0];
+            }
+
+            this.move = this.res + (e.pageY - this.start);
+
+            if(this.move > this.top){
+                this.move = this.top;
+            }else if(this.move < this.bottom){
+                this.move = this.bottom;
+            }
+
+            pub.setTransform(this.wrapper, `translate3d(0, ${this.move}px, 0)`);
+        }
+
+        mouseup(){
+            //关闭开关
+            this.isMoving = false;
+            //计算时间差
+            let lastTime = Date.now();
+            const time = lastTime - this.startTime;
+
+            this.res = this.move;
+
+            let speed = (this.res - this.start) / time;
+            if(time <= 300){
+                this.moveTo(speed, lastTime, this.res);
+            }
+
+            pub.removeEvent(this.wrapper, this.touchmove, this._mousemove);
+            pub.removeEvent(this.wrapper, this.touchend, this._mouseup);
+            pub.removeEvent(this.wrapper, 'mouseleave', this._mouseup);
+        }
+
+        moveTo(v, startTime, res){
+            console.log(v)
+        }
+    }
+
+    new Slider('.container');
 }
 
 

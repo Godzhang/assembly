@@ -1,14 +1,15 @@
 import './scrollbar.css';
 import './index.css';
 import pub from 'util/public.js';
+import Core from 'util/timeline/core';
 
 class ScrollBar{
 	constructor(el, params = {}){
 		const defaults = {
-			wh: 0,		//滚动条的宽或高
+			wh: 0,			//滚动条的宽或高
 			distance: 20,	//每次滚动距离
 			direction: 'y',	//滚动方向
-			initPos: 0,
+			initPos: 0,		//初始位置
 			toTop: function(){},
 			onScroll: function(){},
 			toBottom: function(){}
@@ -19,11 +20,13 @@ class ScrollBar{
 		this.wrapper = null;	//内容容器
 		//检测是否是firfox浏览器
 		this.isMoz = 'MozTransform' in document.createElement('div').style;
+		this.wheelEvent = this.isMoz ? 'DOMMouseScroll' : 'mousewheel';
+		//检测是否是移动端
 		this.isTouch = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent);
 		this.touchstart = this.isTouch ? 'touchstart' : 'mousedown';
 		this.touchmove = this.isTouch ? 'touchmove' : 'mousemove';
 		this.touchend = this.isTouch ? 'touchend' : 'mouseup';
-		this.wheelEvent = this.isTouch ? 'DOMMouseScroll' : 'mousewheel';
+		
 		
 		this.delta = null;		//滚动参数
 		this.scrollPos = 0;		//记录滚动条位置
@@ -100,6 +103,8 @@ class ScrollBar{
 			this.scrollTo(this.params.initPos);
 			this.scrollPos = this.params.initPos;
 		}
+		//设置容器和滚动条过渡时间
+		this.setDuration(500);
 	}
 
 	bindEvent(){
@@ -130,6 +135,7 @@ class ScrollBar{
 		this.start = e[this.p];
 		this.startBarPos = getPos(pub.getStyle(this.scrollBar, 'transform'), this.params.direction);	//保存鼠标按下时滚动条的位置
 		this.isMouseDown = true;
+		this.setDuration(0);
 
 		pub.addEvent(document, this.touchmove, this._mouseMove);
 		pub.addEvent(document, this.touchend, this._mouseUp);
@@ -156,6 +162,8 @@ class ScrollBar{
 		//保存内容最新的位置
 		this.scrollPos = getPos(pub.getStyle(this.scrollBar, 'transform'), this.params.direction);
 		this.isMouseDown = false;
+		this.setDuration(500);
+
 		pub.removeEvent(document, this.touchmove, this._mouseMove);
 		pub.removeEvent(document, this.touchend, this._mouseUp);
 	}
@@ -167,6 +175,8 @@ class ScrollBar{
 
 		let dis = e[this.p] - pub[this.g](this.el);	//计算点击位置坐标
 		let pos = dis - this.params.wh / 2;
+
+		this.setDuration(0);
 
 		if(dis < this.params.wh / 2){
 			pos = 0;
@@ -186,15 +196,13 @@ class ScrollBar{
 				params.toBottom && params.toBottom.call(this);
 			}else{
 				this.scrollPos += this.params.distance;
-				params.onScroll && params.onScroll.call(this, -this.scrollPos/this.percent);
 			}
 		}else if(this.delta > 0){	//向上或向左滚动
 			if(this.scrollPos - this.params.distance <= 0){
 				this.scrollPos = 0;
 				params.toTop && params.toTop.call(this);
 			}else{
-				this.scrollPos -= this.params.distance;
-				params.onScroll && params.onScroll.call(this, -this.scrollPos/this.percent);
+				this.scrollPos -= this.params.distance;				
 			}
 		}
 		this.scrollTo(this.scrollPos);
@@ -208,6 +216,7 @@ class ScrollBar{
 			pub.setTransform(this.scrollBar, `translate3d(0, ${pos}px, 0)`);
 			pub.setTransform(this.wrapper, `translate3d(0, ${-pos / this.percent}px, 0)`);
 		}
+		this.params.onScroll && this.params.onScroll.call(this, pos, parseInt(-pos/this.percent));
 	}
 
 	animateTo(dir){
@@ -215,6 +224,7 @@ class ScrollBar{
 			if(Math.abs(dir - this.scrollPos) < 1){
 				this.scrollTo(dir);
 				clearTimeout(this.timer);
+				this.setDuration(500);
 			}else{
 				let diff = (dir - this.scrollPos) / 2;
 				this.scrollPos += diff;
@@ -235,6 +245,11 @@ class ScrollBar{
 			this.scrollBar.style[this.wh] = this.params.wh + 'px';
 		}, 300);
 	}
+
+	setDuration(time){
+		pub.setTransitionDuration(this.scrollBar, time);
+		pub.setTransitionDuration(this.wrapper, time);
+	}
 }
 
 function createDom(tag, className){
@@ -245,39 +260,17 @@ function createDom(tag, className){
 
 function getPos(str, dir){
 	const arr = str.replace(/matrix\(([^)]*)\)/g, '$1').replace(/\s/g, '').split(',');
-	if(dir === 'y'){
-		return parseInt(arr[5]);
-	}
+	return dir === 'y' ? parseInt(arr[5]) : parseInt(arr[4]);
 }
 
-
 window.onload = function(){
-	new ScrollBar('.container-1', {
-		// toTop(){
-		// 	console.log('top');
-		// },
-		// toBottom(){
-		// 	console.log('bottom');
-		// },
-		// onScroll(pos){
-		// 	console.log(pos);
-		// }
-	});
+	new ScrollBar('.container-1');
 	new ScrollBar('.container-2', {
 		wh: 100,
 		direction: 'x'
-		// toTop(){
-		// 	console.log('top');
-		// },
-		// toBottom(){
-		// 	console.log('bottom');
-		// },
-		// onScroll(pos){
-		// 	console.log(pos);
-		// }
 	});
 }
-	
+
 
 
 

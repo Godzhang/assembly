@@ -67,7 +67,7 @@ class Core{
     _end(){
         this.state === 'end';
         this._renderEndState();
-        this.onEnd = this.onEnd();
+        this.onEnd && this.onEnd();
     }
 
     _renderEndState(){
