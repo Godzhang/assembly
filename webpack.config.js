@@ -51,7 +51,8 @@ var config = {
 			assets: __dirname + '/src/assets',
 			page: __dirname + '/src/page',
 			view: __dirname + '/src/view',
-			util: __dirname + '/src/util'
+			util: __dirname + '/src/util',
+			other: __dirname + '/src/other'
 		}
 	},
 	module: {

@@ -45,12 +45,13 @@
     <div class="explain">
         <p>参数配置</p>
         <pre><code>new ScrollBar('.container', {
-    direction: 'x',         //滚动方向
-    wh: 100,                //滚动条宽或高
-    distance: 20,           //每次滚动条的滚动距离
-    initPos: 100,           //滚动条初始位置，默认为0
-    toTop: function(){},    //滚动到顶部触发
-    onScroll: function(pos1, pos2){ //滚动过程中触发
+    direction: 'x',           //滚动方向
+    wh: 100,                  //滚动条宽或高
+    distance: 20,             //每次滚动条的滚动距离
+    initPos: 100,             //滚动条初始位置，默认为0
+    timeFuncL: 'easeInCubic'  //滚动条运动函数
+    toTop: function(){},      //滚动到顶部触发
+    onScroll: function(pos1, pos2){   //滚动过程中触发
         pos1    //滚动条位置
         pos2    //滚动内容相对容器位移
     },

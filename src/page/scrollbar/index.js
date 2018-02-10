@@ -2,6 +2,7 @@ import './scrollbar.css';
 import './index.css';
 import pub from 'util/public.js';
 import Core from 'util/timeline/core';
+import Tween from 'util/timeline/tween';
 
 class ScrollBar{
 	constructor(el, params = {}){
@@ -10,6 +11,7 @@ class ScrollBar{
 			distance: 20,	//每次滚动距离
 			direction: 'y',	//滚动方向
 			initPos: 0,		//初始位置
+			timeFunc: 'easeInCubic',	//滚动条运动函数
 			toTop: function(){},
 			onScroll: function(){},
 			toBottom: function(){}
@@ -18,6 +20,7 @@ class ScrollBar{
 		this.el = typeof el === 'string' ? document.querySelector(el) : el;		
 		this.container = null;	//外层容器
 		this.wrapper = null;	//内容容器
+		this.wrapperPos = 0;	//内层容器位置
 		//检测是否是firfox浏览器
 		this.isMoz = 'MozTransform' in document.createElement('div').style;
 		this.wheelEvent = this.isMoz ? 'DOMMouseScroll' : 'mousewheel';
@@ -27,11 +30,10 @@ class ScrollBar{
 		this.touchmove = this.isTouch ? 'touchmove' : 'mousemove';
 		this.touchend = this.isTouch ? 'touchend' : 'mouseup';
 		
-		
 		this.delta = null;		//滚动参数
 		this.scrollPos = 0;		//记录滚动条位置
-		this.start = null;		
-		this.move = null;
+		this.start = 0;		
+		this.move = 0;
 		this.isMouseDown = false;	//鼠标是否被按下
 		this.timer = null;
 		this.resizeTimer = null;
@@ -99,15 +101,16 @@ class ScrollBar{
 		this.barScrollHeight = this.scrollBox[this.os] - this.scrollBar[this.os];	//滚动条的可滚动距离
 		this.percent = this.barScrollHeight / this.scrollHeight;	//容器滚动距离与滚动条滚动距离比例
 		//如果有initPos参数
-		if(this.params.initPos !== 0){
+		if(this.params.initPos >= 0 && this.params.initPos < this.barScrollHeight){
 			this.scrollTo(this.params.initPos);
 			this.scrollPos = this.params.initPos;
+			this.wrapperPos = -this.params.initPos/this.percent;
 		}
-		//设置容器和滚动条过渡时间
-		this.setDuration(500);
 	}
 
 	bindEvent(){
+		//设置容器和滚动条过渡时间
+		this.setDuration(500);
 		//滚动事件
 		pub.addEvent(this.container, this.wheelEvent, (e) => {
 			e.preventDefault();
@@ -122,7 +125,7 @@ class ScrollBar{
 		pub.addEvent(this.scrollBar, this.touchstart, this._mouseDown);
 		//滚动轨道点击事件
 		this._railEvent = this.railEvent.bind(this);
-		pub.addEvent(this.scrollRail, 'click', this._railEvent)
+		pub.addEvent(this.scrollRail, 'click', this._railEvent);
 	}
 
 	mouseDown(e){
@@ -131,11 +134,10 @@ class ScrollBar{
 		if(e.changedTouches){
 			e = e.changedTouches[0];
 		}
-
+		this.setDuration(0);
 		this.start = e[this.p];
 		this.startBarPos = getPos(pub.getStyle(this.scrollBar, 'transform'), this.params.direction);	//保存鼠标按下时滚动条的位置
 		this.isMouseDown = true;
-		this.setDuration(0);
 
 		pub.addEvent(document, this.touchmove, this._mouseMove);
 		pub.addEvent(document, this.touchend, this._mouseUp);
@@ -143,6 +145,7 @@ class ScrollBar{
 
 	mouseMove(e){
 		if(!this.isMouseDown) return;
+		this.setDuration(0);
 		if(e.changedTouches){
 			e = e.changedTouches[0];
 		}
@@ -172,6 +175,7 @@ class ScrollBar{
 		if(e.changedTouches){
 			e = e.changedTouches[0];
 		}
+		this.setDuration(500);
 
 		let dis = e[this.p] - pub[this.g](this.el);	//计算点击位置坐标
 		let pos = dis - this.params.wh / 2;
@@ -183,8 +187,9 @@ class ScrollBar{
 		}else if(dis > (this.scrollBox[this.os] - this.params.wh / 2)){
 			pos = this.scrollBox[this.os] - this.params.wh;
 		}
+		this.date = Date.now();
 
-		this.animateTo(pos);
+		this.animateTo(this.scrollPos, pos - this.scrollPos, 500);
 	}
 
 	scroll(){
@@ -217,20 +222,26 @@ class ScrollBar{
 			pub.setTransform(this.wrapper, `translate3d(0, ${-pos / this.percent}px, 0)`);
 		}
 		this.params.onScroll && this.params.onScroll.call(this, pos, parseInt(-pos/this.percent));
+		//需要继续补充完善的功能
+		//如果滑动快的话内容使用惯性滚动
 	}
-
-	animateTo(dir){
+	//滚动条运动函数
+	animateTo(b, c, d){		
 		this.timer = setTimeout(() => {
-			if(Math.abs(dir - this.scrollPos) < 1){
-				this.scrollTo(dir);
-				clearTimeout(this.timer);
-				this.setDuration(500);
+			const newTime = Date.now();
+			const nowTime = newTime - this.date;
+			if(newTime - this.date >= d){
+				let dist = b + c;			//终点位置
+				this.scrollTo(dist);		//滑动到终点位置
+				this.scrollPos = dist;		//保存终点位置
+				setTimeout(() => {
+					this.setDuration(500);	
+				}, 100);
 			}else{
-				let diff = (dir - this.scrollPos) / 2;
-				this.scrollPos += diff;
-				this.scrollTo(this.scrollPos);
-				this.animateTo(dir);
-			}
+				const p = Tween[this.params.timeFunc](nowTime, b, c, d);
+				this.animateTo(b, c, d);
+				this.scrollTo(p);
+			}				
 		}, 20);
 	}
 
