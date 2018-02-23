@@ -8,19 +8,33 @@ import State from 'util/state';
 const cvs = document.querySelector('#cvs');
 const ctx = cvs.getContext('2d');
 
-let w = 60,
-	h = 80,
-	b = h / w;
-ctx.translate(300, 100);
-ctx.rotate(Math.PI / 9);
-ctx.scale(1, b);
-ctx.arc(0, 0, w/2, 0, Math.PI * 2);
-ctx.stroke();
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+// ctx.shadowColor = '#00f';
+// ctx.shadowBlur = 1;
+// ctx.shadowOffsetX = 2;
+// ctx.shadowOffsetY = 3;
+
+// ctx.font = 'bold italic 50px Arial';
+// ctx.textAlign = 'start';
+// ctx.fillStyle = '#f00';
+// ctx.fillText('zhangqi', 50, 50);
+// ctx.strokeStyle = '#08c';
+// ctx.strokeText('zhaojinge', 50, 150);
 
 // const img = document.querySelector('#img');
 // ctx.drawImage(img, 50, 50, 300, 300, 0, 0, 100, 100);
