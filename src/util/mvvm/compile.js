@@ -30,7 +30,7 @@ Compile.prototype = {
 			}
 		});
 	},
-	//文档碎片，遍历过程中会有多吃的dom操作，为提高性能我们会将el节点转化为fragment文档碎片进行计息操作
+	//文档碎片，遍历过程中会有多次的dom操作，为提高性能我们会将el节点转化为fragment文档碎片进行操作
 	//解析操作完成，将其添加回真实dom节点中
 	nodeFragment(el){
 		let fragment = document.createDocumentFragment();
