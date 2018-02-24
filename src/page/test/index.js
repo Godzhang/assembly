@@ -4,9 +4,13 @@ import pub from 'util/public';
 import State from 'util/state';
 // import createVirtualDom from 'util/Element';
 // import 'util/vue-study';
+import 'util/canvas/lottery';
 
 const cvs = document.querySelector('#cvs');
-const ctx = cvs.getContext('2d');
+let ctx = null;
+if(cvs.getContext){
+	ctx = cvs.getContext('2d');
+}
 
 
 
@@ -23,6 +27,55 @@ const ctx = cvs.getContext('2d');
 
 
 
+
+
+// function draw(){
+// 	ctx.fillStyle = '#000';
+// 	ctx.beginPath();
+// 	ctx.moveTo(100,100);
+// 	ctx.bezierCurveTo(110,110,199,278,300,379);
+// 	ctx.lineTo(400,100);
+// 	ctx.closePath();
+// }
+// function cirle(){
+// 	ctx.fillStyle = '#000';
+// 	ctx.beginPath();
+// 	ctx.arc(100, 200, 50, 0, Math.PI * 2);
+// 	ctx.closePath();
+// }
+// draw();
+// ctx.fill();
+// cirle();
+// ctx.fill();
+
+// let fns = [draw, cirle];
+
+// cvs.onmousemove = function(e){
+// 	let x = e.offsetX,
+// 		y = e.offsetY;
+// 	ctx.clearRect(0, 0, 1000, 800);
+// 	for(let i = fns.length; i--;){
+// 		fns[i]();
+// 		if(ctx.isPointInPath(x, y)){
+// 			ctx.fillStyle = '#f00';
+// 		}else{
+// 			ctx.fillStyle = '#000';
+// 		}
+// 		ctx.fill();
+// 	}
+// }
+
+// ctx.save();
+// ctx.transform(1, Math.tan(Math.PI/180*30), 0, 1, 0, 0);
+// ctx.arc(100, 100, 50, 0, Math.PI * 2);
+// ctx.fillStyle = '#f00';
+// ctx.fill();
+// ctx.restore();
+// ctx.beginPath();
+
+// ctx.arc(100, 100, 50, 0, Math.PI * 2);
+// ctx.fillStyle = '#000';
+// ctx.fill();
 
 // ctx.shadowColor = '#00f';
 // ctx.shadowBlur = 1;
