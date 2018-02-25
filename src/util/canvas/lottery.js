@@ -10,8 +10,8 @@ const num = Math.PI / 180;
 let step = 20 + 10 * Math.random();
 let angle = 0;
 
-const colorArr=["#ffff00","#6699ff","#cc9933","#999933","#006633","#333399","#33cc33","#00ffff"];  
-const textArr=["苹果6S","电脑","电视","冰箱","空调","洗衣机","宝马","摩托车"];  
+const colorArr=["#ffff00","#6699ff","#cc9933","#999933","#006633","#333399","#33cc33","#00ffff"];
+const textArr=["苹果6S","电脑","电视","冰箱","空调","洗衣机","宝马","摩托车"];
 
 ctx.translate(500, 400);
 
@@ -43,6 +43,7 @@ let t = setInterval(() => {
 
 		ctx.save();
 		ctx.rotate(angle * num);
+		//绘制转盘区域
 		for(let i = 0, len = colorArr.length; i < len; i++){
 			ctx.beginPath();
 			ctx.moveTo(0, 0);
