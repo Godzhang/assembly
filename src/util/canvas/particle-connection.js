@@ -66,8 +66,9 @@ class Particle {
 	}
 
 	resize(){
-		this.canvas.width = this.parent.offsetWidth;
-		this.canvas.height = this.parent.offsetHeight;
+		let parent = this.canvas.parentNode;
+		this.canvas.width = parent.offsetWidth;
+		this.canvas.height = parent.offsetHeight;
 	}
 
 	drawParticle(){
