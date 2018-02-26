@@ -5,25 +5,30 @@ import State from 'util/state';
 // import createVirtualDom from 'util/Element';
 // import 'util/vue-study';
 
+// import Particle from 'util/canvas/particle-connection';
+// new Particle('#canvas');
 // import 'util/canvas/lottery';
 // import 'util/canvas/countdown/countdown';
 // import 'util/canvas/sky/sky';
 // import 'util/canvas/watch';
 
-// const cvs = document.querySelector('#canvas');
-// let ctx = null;
-// if(cvs.getContext){
-// 	ctx = cvs.getContext('2d');
-// }
-// cvs.width = 520;
-// cvs.height = 520;
+const cvs = document.querySelector('#canvas');
+let ctx = null;
+if(cvs.getContext){
+	ctx = cvs.getContext('2d');
+}
+cvs.width = 800;
+cvs.height = 800;
 
+ctx.arc(400, 400, 100, 0, Math.PI * 2);
+ctx.arc(400, 400, 200, 0, Math.PI * 2, true);
 
-
-
-
-
-
+ctx.fillStyle = '#08c';
+ctx.shadowColor = 'gray';
+ctx.shadowOffsetX = 10;
+ctx.shadowOffsetY = 10;
+ctx.shadowBlur = 10;
+ctx.fill();
 
 
 

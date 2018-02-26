@@ -55,8 +55,8 @@ class Particle {
 		pub.addEvent(window, 'resize', this.resize);
 
 		pub.addEvent(this.parent, 'mousemove', (e) => {
-			this.mouse.x = e.clientX;
-			this.mouse.y = e.clientY;
+			this.mouse.x = e.clientX - this.canvas.getBoundingClientRect().left;
+			this.mouse.y = e.clientY - this.canvas.getBoundingClientRect().top;
 		});
 
 		pub.addEvent(this.parent, 'mouseout', (e) => {

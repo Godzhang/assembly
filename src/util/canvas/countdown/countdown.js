@@ -1,5 +1,6 @@
 import pub from 'util/public';
 import digit from './digit';
+
 let WINDOW_WIDTH = 1150;
 let WINDOW_HEIGHT = 768;
 let RADIUS = 8;
