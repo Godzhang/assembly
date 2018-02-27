@@ -20,15 +20,21 @@ if(cvs.getContext){
 cvs.width = 800;
 cvs.height = 800;
 
-ctx.arc(400, 400, 100, 0, Math.PI * 2);
-ctx.arc(400, 400, 200, 0, Math.PI * 2, true);
+CanvasRenderingContext2D.prototype.ell = function(x, y, a, b, deg, sg, eg){
+    ctx.ellipse(x, y, a, b, deg, sg, eg);
+    ctx.stroke();
+}
+ctx.ell(400, 400, 300, 100, 0, 0, Math.PI * 2);
 
-ctx.fillStyle = '#08c';
-ctx.shadowColor = 'gray';
-ctx.shadowOffsetX = 10;
-ctx.shadowOffsetY = 10;
-ctx.shadowBlur = 10;
-ctx.fill();
+// ctx.arc(400, 400, 100, 0, Math.PI * 2);
+// ctx.arc(400, 400, 200, 0, Math.PI * 2, true);
+
+// ctx.fillStyle = '#08c';
+// ctx.shadowColor = 'gray';
+// ctx.shadowOffsetX = 10;
+// ctx.shadowOffsetY = 10;
+// ctx.shadowBlur = 10;
+// ctx.fill();
 
 
 
