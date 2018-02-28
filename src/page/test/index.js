@@ -11,20 +11,45 @@ import State from 'util/state';
 // import 'util/canvas/countdown/countdown';
 // import 'util/canvas/sky/sky';
 // import 'util/canvas/watch';
+// import 'util/canvas/magnifier';
 
-const cvs = document.querySelector('#canvas');
-let ctx = null;
-if(cvs.getContext){
-	ctx = cvs.getContext('2d');
-}
-cvs.width = 800;
-cvs.height = 800;
+const canvas = document.querySelector('#canvas');
+const ctx = canvas.getContext('2d');
 
-CanvasRenderingContext2D.prototype.ell = function(x, y, a, b, deg, sg, eg){
-    ctx.ellipse(x, y, a, b, deg, sg, eg);
-    ctx.stroke();
+const mark = document.querySelector('#mark');
+const mc = mark.getContext('2d');
+
+const width = canvas.width = 960;
+const height = canvas.height = 600;
+
+const hanxue = document.querySelector('#hanxue');
+
+const img = new Image();
+img.src = hanxue.src;
+img.onload = function(){    
+    ctx.drawImage(img, 0, 0, width, height);
 }
-ctx.ell(400, 400, 300, 100, 0, 0, Math.PI * 2);
+
+function filter(){
+
+    let imageData = ctx.getImageData(0, 0, width, height);
+
+    mc.putImageData(imageData, 0, 0, 0, 0, width, height);
+
+}
+
+filter();
+
+
+
+
+
+
+
+
+
+
+
 
 // ctx.arc(400, 400, 100, 0, Math.PI * 2);
 // ctx.arc(400, 400, 200, 0, Math.PI * 2, true);
@@ -35,9 +60,6 @@ ctx.ell(400, 400, 300, 100, 0, 0, Math.PI * 2);
 // ctx.shadowOffsetY = 10;
 // ctx.shadowBlur = 10;
 // ctx.fill();
-
-
-
 
 // function draw(){
 // 	ctx.fillStyle = '#000';

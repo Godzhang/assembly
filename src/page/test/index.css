@@ -1,11 +1,11 @@
-html, body{
+/*html, body{
     width: 100%;
     height: 100%;
     overflow: hidden;
-}
+}*/
 canvas{
-    margin: 50px;
-    height: 100%;
+    /*margin: 250px;*/
+    /*height: 100%;*/
 	/*position: relative;*/
 	/*width: 1000px;*/
 	/*height: 800px;*/
