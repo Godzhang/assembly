@@ -7,38 +7,18 @@ import State from 'util/state';
 
 // import Particle from 'util/canvas/particle-connection';
 // new Particle('#canvas');
-// import 'util/canvas/lottery';
 // import 'util/canvas/countdown/countdown';
 // import 'util/canvas/sky/sky';
 // import 'util/canvas/watch';
 // import 'util/canvas/magnifier';
+import 'util/canvas/bubble';
 
-const canvas = document.querySelector('#canvas');
-const ctx = canvas.getContext('2d');
+// const canvas = document.querySelector('#canvas');
+// const ctx = canvas.getContext('2d');
 
-const mark = document.querySelector('#mark');
-const mc = mark.getContext('2d');
+// const width = canvas.width = 960;
+// const height = canvas.height = 600;
 
-const width = canvas.width = 960;
-const height = canvas.height = 600;
-
-const hanxue = document.querySelector('#hanxue');
-
-const img = new Image();
-img.src = hanxue.src;
-img.onload = function(){    
-    ctx.drawImage(img, 0, 0, width, height);
-}
-
-function filter(){
-
-    let imageData = ctx.getImageData(0, 0, width, height);
-
-    mc.putImageData(imageData, 0, 0, 0, 0, width, height);
-
-}
-
-filter();
 
 
 
