@@ -9,7 +9,9 @@ canvas{
 	/*position: relative;*/
 	/*width: 1000px;*/
 	/*height: 800px;*/
-	border: 1px solid #000;
+    display: block;
+	/*border: 1px solid #000;*/
+    margin: 30px auto;
 	/*margin: 50px;*/
 }
 

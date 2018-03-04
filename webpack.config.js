@@ -39,6 +39,7 @@ var config = {
 		'form-beautify': ['./src/page/form-beautify/index.js'],
 		'button-tip': ['./src/page/button-tip/index.js'],
 		'template': ['./src/page/template/index.js']
+		'canvas': ['./src/page/canvas/index.js']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -112,6 +113,7 @@ var config = {
 		new HtmlWebpackPlugin(getHtmlConfig('form-beautify', '表单美化')),
 		new HtmlWebpackPlugin(getHtmlConfig('button-tip', '表单美化-2')),
 		new HtmlWebpackPlugin(getHtmlConfig('template', '模板引擎')),
+		new HtmlWebpackPlugin(getHtmlConfig('canvas', 'canvas效果展示')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),
