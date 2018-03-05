@@ -39,7 +39,7 @@ var config = {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'js/[name].js',
 		// publicPath: '/assembly/dist/'
-		publicPath: '/dist/'
+		publicPath: 'assembly/dist/'
 	},
 	resolve: {
 		alias: {
