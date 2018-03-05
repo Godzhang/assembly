@@ -39,7 +39,7 @@ var config = {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'js/[name].js',
 		// publicPath: '/assembly/dist/'
-		publicPath: '/dist/'
+		publicPath: 'https://godzhang.github.io/assembly/'
 	},
 	resolve: {
 		alias: {
@@ -113,6 +113,7 @@ var config = {
 }
 
 if(WEBPACK_ENV === 'dev'){
+	config.output.publicPath = '/dist/';
 	config.entry.common.push('webpack-dev-server/client?http://localhost:8088/');
 }
 
