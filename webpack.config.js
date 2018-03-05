@@ -39,7 +39,7 @@ var config = {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'js/[name].js',
 		// publicPath: '/assembly/dist/'
-		publicPath: 'https://godzhang.github.io/assembly/'
+		publicPath: 'https://godzhang.github.io/assembly/dist/'
 	},
 	resolve: {
 		alias: {
