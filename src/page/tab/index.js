@@ -25,7 +25,6 @@ class Tab {
 		this.touchmove = this.isTouch ? 'touchmove' : 'mousemove';
 		this.touchend = this.isTouch ? 'touchend' : 'mouseup';
 		this.startX = null;
-		// this.startY = null;
 		this.move = null;
 		this.moving = false;
 

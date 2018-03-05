@@ -6,9 +6,12 @@
 .item button{
 	display: block;
 	width: 100%;
-	/*height: 50px;*/
 	line-height: 25px;
+	background: #08c;
+	color: #fff;
+	border: none;
 	outline: none;
+	cursor: pointer;
 }
 
 .dialog-wrapper{

@@ -18,7 +18,7 @@ class TouchLock {
             rows: 3,
             bg: '#aaa',
             near: true,
-            correct: [1, 2, 4],
+            correct: [0, 1, 2, 4, 6, 7, 8],
             onSuccess: function(){},
             onError: function(){}
         }
@@ -93,7 +93,7 @@ class TouchLock {
         pub.addEvent(this.canvas, this.touchstart, this._start);
         pub.addEvent(this.canvas, this.touchmove, this._move);
         pub.addEvent(this.canvas, this.touchend, this._end);
-        pub.addEvent(this.canvas, 'mouseout', this._end);
+        // pub.addEvent(this.canvas, 'mouseout', this._end);
     }
 
     start(e){
@@ -153,6 +153,11 @@ class TouchLock {
 
     checkLines(){
         let res = true;
+
+        if(this.lines.length !== this.params.correct.length){
+            return false;
+        }
+
         for(let i = 0, len = this.lines.length; i < len; i++){
             if(this.lines[i].i !== this.params.correct[i]){
                 res = false;

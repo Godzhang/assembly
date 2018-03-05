@@ -4,12 +4,60 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 	<title>自定义滚动条</title>
-<link href="/assembly/dist/css/common.css?1dff8cda745e2be001de" rel="stylesheet"><link href="/assembly/dist/css/scrollbar.css?1dff8cda745e2be001de" rel="stylesheet"></head>
+<link href="/dist/css/common.css?07b56646c5983f468d20" rel="stylesheet"><link href="/dist/css/scrollbar.css?07b56646c5983f468d20" rel="stylesheet"></head>
 <body>
-	<div class="lazy-iscroll">
-		<div class="lazy-iscroll-wrapper">
-			
-		</div>
+	<div class="container-1">
+        <div class="list clearfix">
+              <div><img src="/dist/resource/q-1.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-2.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-3.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-4.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-5.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-6.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-7.jpg" alt=""></div>
+        </div>
 	</div>
-<script type="text/javascript" src="/assembly/dist/js/base.js?1dff8cda745e2be001de"></script><script type="text/javascript" src="/assembly/dist/js/scrollbar.js?1dff8cda745e2be001de"></script></body>
+
+    <div class="explain">
+        <p>默认纵向滚动</p>
+        <pre><code>new ScrollBar('.container-1');</code></pre>
+    </div>
+
+    <div class="container-2">
+        <div class="list clearfix">
+              <div><img src="/dist/resource/q-1.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-2.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-3.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-4.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-5.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-6.jpg" alt=""></div>
+              <div><img src="/dist/resource/q-7.jpg" alt=""></div>
+        </div>
+    </div>
+
+    <div class="explain">
+        <p>横向滚动</p>
+        <pre><code>new ScrollBar('.container-2', {
+    direction: 'x'
+});</code></pre>
+    </div>
+
+    <div class="explain">
+        <p>参数配置</p>
+        <pre><code>new ScrollBar('.container', {
+    direction: 'x',           //滚动方向
+    wh: 100,                  //滚动条宽或高
+    distance: 20,             //每次滚动条的滚动距离
+    initPos: 100,             //滚动条初始位置，默认为0
+    timeFuncL: 'easeInCubic'  //滚动条运动函数
+    toTop: function(){},      //滚动到顶部触发
+    onScroll: function(pos1, pos2){   //滚动过程中触发
+        pos1    //滚动条位置
+        pos2    //滚动内容相对容器位移
+    },
+    toBottom: function(){}  //滚动到底部触发
+
+});</code></pre>
+    </div>
+<script type="text/javascript" src="/dist/js/base.js?07b56646c5983f468d20"></script><script type="text/javascript" src="/dist/js/scrollbar.js?07b56646c5983f468d20"></script></body>
 </html>

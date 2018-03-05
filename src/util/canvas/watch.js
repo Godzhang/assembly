@@ -226,6 +226,6 @@ class Watch {
 	}
 }
 
-new Watch('#canvas');
+// new Watch('#canvas');
 
 export default Watch;

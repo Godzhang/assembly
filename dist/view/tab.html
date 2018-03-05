@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 	<title>选项卡</title>
-<link href="/assembly/dist/css/common.css?1dff8cda745e2be001de" rel="stylesheet"><link href="/assembly/dist/css/tab.css?1dff8cda745e2be001de" rel="stylesheet"></head>
+<link href="/dist/css/common.css?07b56646c5983f468d20" rel="stylesheet"><link href="/dist/css/tab.css?07b56646c5983f468d20" rel="stylesheet"></head>
 <body>
 	<div class="tab-container tab-default" id="tab-default">
 		<div class="tab-nav">
@@ -25,7 +25,7 @@
 
 	<div class="explain">
 		<p>默认点击切换</p>
-		<p>new Tab('#tab-default');</p>
+		<pre><code>new Tab('#tab-default');</code></pre>
 	</div>
 
 	<div class="tab-container tab-default" id="tab-default-2">
@@ -47,9 +47,9 @@
 
 	<div class="explain">
 		<p>触摸切换</p>
-		<p>new Tab('#tab-default-2', {</p>
-		<p>tabEvent: 'mouseover'</p>
-		<p>});</p>
+		<pre><code>new Tab('#tab-default-2', {
+	tabEvent: 'mouseover'
+});</code></pre>
 	</div>
 
 	<div class="tab-container tab-default" id="tab-default-3">
@@ -71,10 +71,11 @@
 
 	<div class="explain">
 		<p>自动切换</p>
-		<p>new Tab('#tab-default-3', {</p>
-		<p>autoPlay: true,</p>
-		<p>speed: 2000</p>
-		<p>});</p>
+		<pre><code>
+const tab3 = new Tab('#tab-default-3', {
+	autoPlay: true
+});
+		</code></pre>
 	</div>
 
 	<div class="tab-container tab-line" id="tab-line">
@@ -97,9 +98,11 @@
 
 	<div class="explain">
 		<p>不同的切换样式</p>
-		<p>new Tab('#tab-line', {</p>
-		<p>type: 'line'</p>
-		<p>});</p>
+		<pre><code>
+const tab4 = new Tab('#tab-line', {
+	type: 'line'
+});
+		</code></pre>
 	</div>
 
 	<div class="tab-container tab-default" id="tab-default-4">
@@ -122,10 +125,15 @@
 	</div>
 
 	<div class="explain">
-		<p>开启滑动切换(可滑动内容切换)</p>
-		<p>new Tab('#tab-default-4', {</p>
-		<p>effect: 'slide',</p>
-		<p>});</p>
+		<p>开启滑动切换(可拖动内容切换)</p>
+		<pre><code>
+const tab5 = new Tab('#tab-default-4', {
+	effect: 'slide',
+	onTabEnd(i, val){
+		console.log(i);
+	}
+});
+		</code></pre>
 	</div>
 
 	<div class="tab-container tab-default" id="tab-default-5">
@@ -149,10 +157,12 @@
 
 	<div class="explain">
 		<p>淡入淡出切换</p>
-		<p>new Tab('#tab-default-5', {</p>
-		<p>effect: 'fade',</p>
-		<p>});</p>
+		<pre><code>
+const tab6 = new Tab('#tab-default-5', {
+	effect: 'fade'
+});
+		</code></pre>
 	</div>
 
-<script type="text/javascript" src="/assembly/dist/js/base.js?1dff8cda745e2be001de"></script><script type="text/javascript" src="/assembly/dist/js/tab.js?1dff8cda745e2be001de"></script></body>
+<script type="text/javascript" src="/dist/js/base.js?07b56646c5983f468d20"></script><script type="text/javascript" src="/dist/js/tab.js?07b56646c5983f468d20"></script></body>
 </html>

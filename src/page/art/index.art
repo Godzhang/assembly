@@ -1,8 +1,0 @@
-{{if name}}
-<div class="header">{{ name }}</div>
-    {{each arr}}
-    <div class="content">{{$index}}----{{ $value }}</div>
-    {{/each}}
-{{/if}}
-    
-<div class="footer">footer</div>

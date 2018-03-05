@@ -126,7 +126,7 @@ window.onload = function(){
                                         btn.close();
                                         setTimeout(() => {
                                             child.close();
-                                        }, 2000);
+                                        }, 1000);
                                         return false;
                                     }
                                 }

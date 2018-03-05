@@ -4,7 +4,7 @@ import RichEditor from 'util/editor/editor.js';
 
 window.onload = function(){
 	const editor = new RichEditor('#editor', {
-		width: 500,
+		width: 1000,
 		height: 300
 	});
 }

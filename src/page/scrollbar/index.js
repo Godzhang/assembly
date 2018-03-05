@@ -1,7 +1,6 @@
 import './scrollbar.css';
 import './index.css';
 import pub from 'util/public.js';
-import Core from 'util/timeline/core';
 import Tween from 'util/timeline/tween';
 
 class ScrollBar{
@@ -17,7 +16,7 @@ class ScrollBar{
 			toBottom: function(){}
 		};
 		this.params = Object.assign({}, defaults, params);
-		this.el = typeof el === 'string' ? document.querySelector(el) : el;		
+		this.el = typeof el === 'string' ? document.querySelector(el) : el;
 		this.container = null;	//外层容器
 		this.wrapper = null;	//内容容器
 		this.wrapperPos = 0;	//内层容器位置

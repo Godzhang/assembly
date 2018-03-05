@@ -4,22 +4,48 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 	<title>轮播图</title>
-<link href="/assembly/dist/css/common.css?1dff8cda745e2be001de" rel="stylesheet"><link href="/assembly/dist/css/focus.css?1dff8cda745e2be001de" rel="stylesheet"></head>
+<link href="/dist/css/common.css?07b56646c5983f468d20" rel="stylesheet"><link href="/dist/css/focus.css?07b56646c5983f468d20" rel="stylesheet"></head>
 <body>
 	
     <div class="container">
-        <div class="focus">
-            <ul class="list">
-                <li class="slide"><a href="javascript:;"><img src="/assembly/dist/resource/q-1.jpg" alt=""></a></li>
-                <li class="slide"><a href="javascript:;"><img src="/assembly/dist/resource/q-2.jpg" alt=""></a></li>
-                <li class="slide"><a href="javascript:;"><img src="/assembly/dist/resource/q-3.jpg" alt=""></a></li>
-                <li class="slide"><a href="javascript:;"><img src="/assembly/dist/resource/q-4.jpg" alt=""></a></li>
-            </ul>
+        <div class="focus-box">
+            <div class="focus">
+                <ul class="list">
+                    <li class="slide"><a href="javascript:;"><img src="/dist/resource/q-1.jpg" alt=""></a></li>
+                    <li class="slide"><a href="javascript:;"><img src="/dist/resource/q-2.jpg" alt=""></a></li>
+                    <li class="slide"><a href="javascript:;"><img src="/dist/resource/q-3.jpg" alt=""></a></li>
+                    <li class="slide"><a href="javascript:;"><img src="/dist/resource/q-4.jpg" alt=""></a></li>
+                </ul>
+            </div>
+            <div class="point"></div>
+            <a href="javascript:;" class="arr prev"></a>
+            <a href="javascript:;" class="arr next"></a>
         </div>
-        <div class="point"></div>
-        <a href="javascript:;" class="arr prev"></a>
-        <a href="javascript:;" class="arr next"></a>
-    </div>
 
-<script type="text/javascript" src="/assembly/dist/js/base.js?1dff8cda745e2be001de"></script><script type="text/javascript" src="/assembly/dist/js/focus.js?1dff8cda745e2be001de"></script></body>
+        <div class="explain">
+            <pre><code>new Focus('.focus-box', {    //最外层父容器
+    list: '.list',      //子项父容器
+    item: '.slide',     //子项
+    point: '.point',    //焦点容器
+    pointTag： 'b',     //焦点标签
+    active: 'act',      //焦点触发类
+    pointEvent: 'click',//焦点绑定事件
+    prev: '.prev',      //向前箭头
+    next: '.next',      //向后箭头
+    event: 'click',     //箭头绑定事件
+    slide: true,        //是否开启拖拽滑动功能，默认为false
+    minRange: 100,      //滑动最小切换值，滑动距离小于100恢复原位
+    time: 4000,         //自动轮播间隔，默认为0,不轮播
+    speed: 300,         //切换速度,单位ms
+    onSlideEnd(i, val){ //切换结束触发
+        //i: 当前索引
+        //val: 当前项
+    }
+});
+            </code></pre>
+        </div>
+    </div>
+        
+
+<script type="text/javascript" src="/dist/js/base.js?07b56646c5983f468d20"></script><script type="text/javascript" src="/dist/js/focus.js?07b56646c5983f468d20"></script></body>
 </html>

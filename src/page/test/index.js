@@ -12,7 +12,7 @@ import State from 'util/state';
 // import 'util/canvas/watch';
 // import 'util/canvas/magnifier';
 // import 'util/canvas/bubble';
-import 'util/canvas/touchlock';
+// import 'util/canvas/touchlock';
 
 // const canvas = document.querySelector('#canvas');
 // const ctx = canvas.getContext('2d');
@@ -35,33 +35,6 @@ import 'util/canvas/touchlock';
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// class Maze {
-//     constructor(ctx, col, row){
-//         this.ctx = ctx;
-//         this.col = col || 10;
-//         this.row = row || 10;
-
-//         this.init();
-//     }
-
-//     init(){
-
-//     }
-// }
-
-// new Maze(ctx, 10, 10);
 
 
 

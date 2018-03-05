@@ -1,6 +1,6 @@
 import pub from 'util/public';
 
-const canvas = document.querySelector('#canvas');
+const canvas = document.querySelector('#canvas-2');
 const ctx = canvas.getContext('2d');
 
 const offCanvas = document.querySelector('#offCanvas');
@@ -20,23 +20,23 @@ img.onload = function(){
     offContext.drawImage(img, 0, 0);   
 }
 
-pub.addEvent(canvas, 'mousedown', (e) => {
-    e.preventDefault();
-    let point = windowToCanvas(e.clientX, e.clientY);
-    isMouseDown = true;
+// pub.addEvent(canvas, 'mousedown', (e) => {
+//     e.preventDefault();
+//     let point = windowToCanvas(e.clientX, e.clientY);
+//     isMouseDown = true;
 
-    drawCanvasWithMagnifier(true, point);
-});
+//     drawCanvasWithMagnifier(true, point);
+// });
 pub.addEvent(canvas, 'mousemove', (e) => {
     e.preventDefault();
-    if(isMouseDown){
+    // if(isMouseDown){
         let point = windowToCanvas(e.clientX, e.clientY);
         drawCanvasWithMagnifier(true, point);
-    }
+    // }
 });
 pub.addEvent(canvas, 'mouseup', (e) => {
     e.preventDefault();
-    isMouseDown = false;
+    // isMouseDown = false;
     drawCanvasWithMagnifier(false);
     
 });
@@ -44,7 +44,6 @@ pub.addEvent(canvas, 'mouseout', (e) => {
     e.preventDefault();
     isMouseDown = false;
     drawCanvasWithMagnifier(false);
-    
 });
 
 function windowToCanvas(x, y){
@@ -67,7 +66,7 @@ function drawMagnifier(point){
     let cx = point.x * 2;
     let cy = point.y * 2;
 
-    let mr = 150;
+    let mr = 100;
 
     let sx = cx - mr;
     let sy = cy - mr;
