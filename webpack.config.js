@@ -33,13 +33,14 @@ var config = {
 		'editor': ['./src/page/editor/index.js'],
 		'scrollbar': ['./src/page/scrollbar/index.js'],
 		'button-tip': ['./src/page/button-tip/index.js'],
-		'canvas': ['./src/page/canvas/index.js']
+		'canvas': ['./src/page/canvas/index.js'],
+		'datepicker': ['./src/page/datepicker/index.js'],
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'js/[name].js',
-		// publicPath: '/assembly/dist/'
-		publicPath: 'https://godzhang.github.io/assembly/dist/'
+		publicPath: '/dist/'
+		// publicPath: 'https://godzhang.github.io/assembly/dist/'
 	},
 	resolve: {
 		alias: {
@@ -102,6 +103,7 @@ var config = {
 		new HtmlWebpackPlugin(getHtmlConfig('scrollbar', '自定义滚动条')),
 		new HtmlWebpackPlugin(getHtmlConfig('button-tip', '表单美化')),
 		new HtmlWebpackPlugin(getHtmlConfig('canvas', 'canvas效果展示')),
+		new HtmlWebpackPlugin(getHtmlConfig('datepicker', '日期')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),
@@ -113,7 +115,6 @@ var config = {
 }
 
 if(WEBPACK_ENV === 'dev'){
-	config.output.publicPath = '/dist/';
 	config.entry.common.push('webpack-dev-server/client?http://localhost:8088/');
 }
 

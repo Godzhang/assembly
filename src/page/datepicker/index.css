@@ -1,0 +1,16 @@
+.box{position: relative;height: 200px;margin-bottom: 50px;}
+.explain{position: absolute;top: 5px;left: 400px;;;margin: 0;}
+#dateInput,#dateInput2,#dateInput3{display: block;position: absolute;top: 5px;left: 5px;width: 300px;height: 30px;line-height: 30px;font-size: 18px;padding: 0 5px;}
+
+.dateBox{width: 350px;background: #f8f8f8;display: none;}
+.dateTitle{height: 30px;line-height: 30px;font-size: 20px;text-align: center;background: #41a9cc;color: #fff;}
+.prevyear,.prevmonth,.nextyear,.nextmonth{width: 30px;color: #fff;}
+.prevyear:hover,.prevmonth:hover,.nextyear:hover,.nextmonth:hover{background: #257eae;}
+.week{height: 50px;overflow: hidden;}
+.week li{background: #eee;}
+.week li,.days a,.days span{float: left;width: 50px;height: 50px;text-align: center;line-height: 50px;font-size: 20px;color: #373737;}
+.days a,.days span{font-size: 18px;border-radius: 50%;}
+.days span{color: #999;}
+.days a.cur{background: #4184a9;color: #fff;}
+.days a.sel{background: #f00;color: #fff;}
+.days a:hover{background: #ff7300;color: #fff;}

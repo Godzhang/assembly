@@ -64,7 +64,7 @@ img{display: block;}
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-.explain pre{background: #eee;padding: 0 10px;}
+.explain pre{background: #eee;padding: 10px;}
 @media screen and (max-width: 960px){
     .explain{width: 100%;}
 }

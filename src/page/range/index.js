@@ -64,7 +64,6 @@ class Range{
         this.dir = 0;
 
         pub.addEvent(this.hand, this.touchstart, this._startEvent);
-
     }
 
     startEvent(e){

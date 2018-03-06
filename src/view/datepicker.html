@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+	
+	<div class="box">
+		<input type="text" id="dateInput" placeholder="选择日期" />
+		<div class="explain">
+			<p>默认效果</p>
+			<pre><code>new Datepicker('#dateInput');</code></pre>
+		</div>
+	</div>
+	<div class="box">
+		<input type="text" id="dateInput2" placeholder="选择日期" />
+		<div class="explain">
+			<p>每次都定位到当前月份日期</p>
+			<pre><code>new Datepicker('#dateInput2', {
+  reset: true
+});</code></pre>
+		</div>
+	</div>
+	<div class="box">
+		<input type="text" id="dateInput3" placeholder="选择日期" />
+		<div class="explain">
+			<p>从星期一开始的日历格式</p>
+			<pre><code>new Datepicker('#dateInput3', {
+	startfromMonday: true,
+	//点击选择后调用，参数为年月日
+	onSelect(year, month, day){
+		console.log(year, month, day);
+	}
+});</code></pre>
+		</div>
+	</div>
+	
+
+</body>
+</html>
