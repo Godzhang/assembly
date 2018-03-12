@@ -35,6 +35,7 @@ var config = {
 		'button-tip': ['./src/page/button-tip/index.js'],
 		'canvas': ['./src/page/canvas/index.js'],
 		'datepicker': ['./src/page/datepicker/index.js'],
+		'shopcart': ['./src/page/shopcart/index.js'],
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -104,6 +105,7 @@ var config = {
 		new HtmlWebpackPlugin(getHtmlConfig('button-tip', '表单美化')),
 		new HtmlWebpackPlugin(getHtmlConfig('canvas', 'canvas效果展示')),
 		new HtmlWebpackPlugin(getHtmlConfig('datepicker', '日期')),
+		new HtmlWebpackPlugin(getHtmlConfig('shopcart', '购物车')),
 		// new CleanWebpackPlugin(['dist']),
 		//把css单独打包到文件里
 		new ExtractTextPlugin('css/[name].css'),

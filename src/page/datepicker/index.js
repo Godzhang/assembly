@@ -54,16 +54,22 @@ class Datepicker {
 		//输入框绑定点击事件
 		pub.addEvent(container, 'click', (event) => {
 			event.preventDefault();
-			event.stopPropagation();
+			// event.stopPropagation();
 
-			if(params.reset){
-				this.buildHtml(this.currentYear, this.currentMonth);
+			if(container.classList.contains('act')){
+				box.style.display = "none";
+				container.classList.remove('act');
 			}else{
-				this.buildHtml();
-			}
+				container.classList.add('act');
+				if(params.reset){
+					this.buildHtml(this.currentYear, this.currentMonth);
+				}else{
+					this.buildHtml();
+				}
 
-			box.innerHTML = this.renderHtml;
-			box.style.display = "block";
+				box.innerHTML = this.renderHtml;
+				box.style.display = "block";
+			}			
 		});
 		//箭头和日期绑定点击事件
 		pub.addEvent(box, 'click', (event) => {
@@ -86,8 +92,13 @@ class Datepicker {
 			}
 		});
 		//点击其他区域，隐藏日期
-		pub.addEvent(document, 'click', () => {
-			box.style.display = "none";
+		pub.addEvent(document, 'click', (e) => {
+			let target = e.target;
+
+			if(target !== container){
+				box.style.display = "none";
+				container.classList.remove('act');
+			}				
 		});
 	}
 
@@ -103,6 +114,7 @@ class Datepicker {
 		let selectDate = `${this.year}-${showMonth}-${showDate}`;
 		this.container.value = selectDate;
 		this.box.style.display = "none";
+		this.container.classList.remove('act');
 
 		this.params.onSelect && this.params.onSelect.call(this, this.year, showMonth, showDate);
 	}

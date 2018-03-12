@@ -22,9 +22,12 @@
 	top: 0;
 	left: 0;
 }
+.marquee-box ul{
+	width: 1200px;
+}
 .marquee-box ul li {
 	float: left;
-	height: 100px;
+	height: 100%;
 }
 .marquee-box ul li img{
 	height: 100px;
