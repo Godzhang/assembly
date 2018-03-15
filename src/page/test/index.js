@@ -2,6 +2,7 @@ import './index.css';
 import 'assets/css/font-awesome.css';
 import pub from 'util/public';
 import State from 'util/state';
+import Timeline from 'util/timeline/index';
 // import createVirtualDom from 'util/Element';
 // import 'util/vue-study';
 
