@@ -63,6 +63,10 @@ var config = {
 		        })
 			},
 			{
+				test: /\.scss$/,
+				loader: 'style-loader!css-loader!sass-loader'
+			},
+			{
 				test: /\.js$/,
 				include: path.resolve(__dirname, './src'),
 				use: {

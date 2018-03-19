@@ -34,6 +34,8 @@
     "hogan": "^1.0.2",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.7",
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",

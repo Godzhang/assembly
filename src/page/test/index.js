@@ -1,26 +1,18 @@
-import './index.css';
-import 'assets/css/font-awesome.css';
+// import './index.css';
+import './index.scss';
+// import 'assets/css/font-awesome.css';
 import pub from 'util/public';
 import State from 'util/state';
 import Timeline from 'util/timeline/index';
-// import createVirtualDom from 'util/Element';
-// import 'util/vue-study';
 
-// import Particle from 'util/canvas/particle-connection';
-// new Particle('#canvas');
-// import 'util/canvas/countdown/countdown';
-// import 'util/canvas/sky/sky';
-// import 'util/canvas/watch';
-// import 'util/canvas/magnifier';
-// import 'util/canvas/bubble';
-// import 'util/canvas/touchlock';
+//设置html字体
+//获取屏幕宽度(viewport)
+let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
 
-// const canvas = document.querySelector('#canvas');
-// const ctx = canvas.getContext('2d');
-
-// const width = canvas.width = 960;
-// const height = canvas.height = 600;
-
+//获取html的dom
+let htmlDom = document.getElementsByTagName('html')[0];
+//设置html的fontsize
+htmlDom.style.fontSize = htmlWidth / 10 + 'px';
 
 
 
