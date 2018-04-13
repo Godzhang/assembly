@@ -43,6 +43,7 @@
 	
 .news-content{	
 	.news-item{
+		position: relative;
 		box-sizing: border-box;
 		width: 100%;
 		height: px2rem(90px);
@@ -66,7 +67,32 @@
 		line-height: px2rem(20px);
 		color: #404040;
 		font-size: px2rem(17px);
-		
+	}
+	.time{
+		position: absolute;
+		left: px2rem(125px);
+		bottom: px2rem(12px);
+		color: #888;
+		font-size: px2rem(12px);
+	}
+	.num{
+		position: absolute;
+		right: px2rem(25px);
+		bottom: px2rem(12px);
+		color: #888;
+		font-size: px2rem(12px);	
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
 

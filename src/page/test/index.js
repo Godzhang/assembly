@@ -2,19 +2,22 @@
 import './index.scss';
 // import 'assets/css/font-awesome.css';
 import pub from 'util/public';
-import State from 'util/state';
-import Timeline from 'util/timeline/index';
+// import State from 'util/state';
+// import Timeline from 'util/timeline/index';
 
-//设置html字体
-//获取屏幕宽度(viewport)
-let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+// //设置html字体
+// //获取屏幕宽度(viewport)
+// let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
 
-//获取html的dom
-let htmlDom = document.getElementsByTagName('html')[0];
-//设置html的fontsize
-htmlDom.style.fontSize = htmlWidth / 10 + 'px';
+// //获取html的dom
+// let htmlDom = document.getElementsByTagName('html')[0];
+// //设置html的fontsize
+// htmlDom.style.fontSize = htmlWidth / 10 + 'px';
 
-
+// pub.addEvent(window, 'resize', () => {
+// 	let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+// 	htmlDom.style.fontSize = htmlWidth / 10 + 'px';
+// })
 
 
 
